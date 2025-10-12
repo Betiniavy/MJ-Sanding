@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery — MJ Sanding</title>
+
+  <style>
+    :root{
+      --bg:#f1e7d6; --bg-2:#e9ddc7; --text:#2b2b2b; --muted:#7a6a55;
+      --brand:#3a2f21; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.10);
+      --maxw:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      line-height:1.6; color:var(--text);
+      background:radial-gradient(1400px 600px at 50% -200px,#fff 0%,var(--bg) 60%,var(--bg-2) 100%);
+    }
+    figure{margin:0}
+
+    /* ===== Container & Filters ===== */
+    .container{max-width:var(--maxw); margin:0 auto; padding:32px 20px 80px}
+    .filters{
+      display:flex; gap:22px; align-items:center; flex-wrap:wrap;
+      padding:12px 8px; border-bottom:1px solid rgba(0,0,0,.06)
+    }
+    .filter{
+      appearance:none; background:none; border:none; padding:8px 2px;
+      font:inherit; color:var(--brand); opacity:.85; cursor:pointer; position:relative
+    }
+    .filter[aria-pressed="true"], .filter:is(:hover,:focus-visible){opacity:1}
+    .filter[aria-pressed="true"]::after{
+      content:""; position:absolute; left:0; right:0; bottom:-6px;
+      height:3px; background:var(--brand); border-radius:2px
+    }
+
+    /* ===== Grid of Cards ===== */
+    .grid{display:grid; gap:22px; padding-top:18px; grid-template-columns:repeat(12,1fr)}
+    @media (max-width:1200px){.grid{grid-template-columns:repeat(9,1fr)}}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr); gap:16px}}
+
+    .card{
+      grid-column:span 4; background:transparent; border-radius:var(--radius);
+      overflow:hidden; position:relative;
+    }
+    @media (max-width:1200px){.card{grid-column:span 3}}
+    @media (max-width:900px){.card{grid-column:span 3}}
+    @media (max-width:640px){.card{grid-column:span 2}}
+    .card[hidden]{display:none}
+
+    /* ===== BA split tile ===== */
+    .ba{
+      position:relative; aspect-ratio:4/3; border-radius:16px; overflow:hidden;
+      box-shadow:var(--shadow); background:#000;
+    }
+    .ba img{
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block; background:transparent;
+    }
+    .ba .img-before{clip-path:inset(0 50% 0 0); z-index:1;}
+    .ba .img-after {clip-path:inset(0 0 0 50%);  z-index:1;}
+    .ba::after{ display:none !important; } /* seamless, no divider */
+
+    /* ===== BDA (tight, no gaps) ===== */
+    .bda{
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:0 !important; aspect-ratio:4/3;
+      border-radius:16px; overflow:hidden;
+      box-shadow:var(--shadow); background:#000;
+    }
+    .bda .ph{
+      position:relative; height:100%;
+      border-radius:0 !important; overflow:hidden;
+      background:#000; box-shadow:none !important;
+    }
+    .bda img{
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; object-position:center; display:block;
+    }
+    .bda .chip{
+      position:absolute; left:10px; bottom:10px; padding:6px 10px; border-radius:999px;
+      background:rgba(0,0,0,.55); color:#fff; font-weight:700; font-size:12.5px; letter-spacing:.2px; z-index:3;
+    }
+
+    /* ===== Labels ===== */
+    .label{
+      position:absolute; bottom:12px; padding:6px 10px; font-weight:700; color:#fff;
+      text-shadow:0 1px 3px rgba(0,0,0,.35); border-radius:999px;
+      background:linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.25));
+      font-size:12.5px; letter-spacing:.2px; z-index:3;
+    }
+    .label.before{left:12px;}
+    .label.after{right:12px;}
+
+    /* ===== Helpers ===== */
+    .focus-left  { object-position:left  center !important; }
+    .focus-right { object-position:right center !important; }
+    .show-all      { object-fit:contain !important; }
+    .contain-left  { object-position:left  center !important; }
+    .contain-right { object-position:right center !important; }
+
+    /* ===== Mobile ===== */
+    @media (max-width: 480px){
+      .grid{
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+      .card{ grid-column: span 1 !important; }
+
+      /* BA vertical split */
+      .ba{ aspect-ratio: 3 / 4; }
+      .ba .img-before{ clip-path: inset(0 0 50% 0) !important; }
+      .ba .img-after { clip-path: inset(50% 0 0 0) !important; }
+      .label.before{ top: 12px; left: 12px; bottom: auto; }
+      .label.after { bottom: 12px; right: 12px; top: auto; }
+
+      /* BDA stacked, no gaps */
+      .bda{ grid-template-columns: 1fr !important; gap:0 !important; aspect-ratio:auto !important; }
+      .bda .ph{ height: 240px; }
+    }
+
+    .page-edge{
+      position:fixed; inset:auto 0 0 0; height:26px;
+      background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.06));
+      pointer-events:none;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .card{transition:none; transform:none !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Filters -->
+    <nav class="filters" aria-label="Gallery filters">
+      <button type="button" class="filter" aria-pressed="true" data-filter="all">All</button>
+      <button type="button" class="filter" data-filter="living">Living Rooms</button>
+      <button type="button" class="filter" data-filter="bedroom">Bedrooms</button>
+      <button type="button" class="filter" data-filter="stairs">Stairs</button>
+      <button type="button" class="filter" data-filter="commercial">Commercial</button>
+    </nav>
+
+    <!-- Grid -->
+    <section class="grid" id="gallery" aria-live="polite">
+      <!-- LIVING ROOM 1 — BDA -->
+      <article class="card" data-cat="living">
+        <div class="bda">
+          <figure class="ph">
+            <img src="assets/gallery/livingroom/livingroom1-before.jpeg" alt="Living room before" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">Before</figcaption>
+          </figure>
+          <figure class="ph">
+            <img src="assets/gallery/livingroom/livingroom1-during.jpeg" alt="Living room during" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">During</figcaption>
+          </figure>
+          <figure class="ph">
+            <img src="assets/gallery/livingroom/livingroom1-after.jpeg" alt="Living room after" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">After</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- LIVING ROOM 2 — BA (no during) -->
+      <article class="card" data-cat="living">
+        <div class="ba">
+          <img class="img-before" src="assets/gallery/livingroom/livingroom2-before.jpeg" alt="Living room 2 before" loading="lazy" decoding="async" width="1200" height="900">
+          <img class="img-after"  src="assets/gallery/livingroom/livingroom2-after.jpeg"  alt="Living room 2 after"  loading="lazy" decoding="async" width="1200" height="900">
+          <span class="label before">Before</span>
+          <span class="label after">After</span>
+        </div>
+      </article>
+
+      <!-- LIVING ROOM 3 — BDA -->
+      <article class="card" data-cat="living">
+        <div class="bda">
+          <figure class="ph">
+            <img src="assets/gallery/livingroom/livingroom3-before.jpeg" alt="Living room 3 before" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">Before</figcaption>
+          </figure>
+          <figure class="ph">
+            <img src="assets/gallery/livingroom/livingroom3-during.jpeg" alt="Living room 3 during" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">During</figcaption>
+          </figure>
+          <figure class="ph">
+            <img src="assets/gallery/livingroom/livingroom3-after.jpeg" alt="Living room 3 after" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">After</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <!-- BEDROOM 1 — BA -->
+      <article class="card" data-cat="bedroom">
+        <div class="ba">
+          <img class="img-before" src="assets/gallery/bedroom/project1bed/bedroom1-before.jpeg" alt="Bedroom floor before" loading="lazy" decoding="async" width="1200" height="900">
+          <img class="img-after"  src="assets/gallery/bedroom/project1bed/bedroom1-after.jpeg"  alt="Bedroom floor after"  loading="lazy" decoding="async" width="1200" height="900">
+          <span class="label before">Before</span>
+          <span class="label after">After</span>
+        </div>
+      </article>
+
+      <!-- STAIRS 1 — BA -->
+      <article class="card" data-cat="stairs">
+        <div class="ba">
+          <img class="img-before show-all contain-left"
+               src="assets/gallery/stairs/projectstairs1/stairs1-before.jpeg"
+               alt="Stairs before" loading="lazy" decoding="async" width="1200" height="900">
+          <img class="img-after show-all contain-right"
+               src="assets/gallery/stairs/projectstairs1/stairs1-after.jpeg"
+               alt="Stairs after"  loading="lazy" decoding="async" width="1200" height="900">
+          <span class="label before">Before</span>
+          <span class="label after">After</span>
+        </div>
+      </article>
+
+      <!-- COMMERCIAL project1com — BA -->
+      <article class="card" data-cat="commercial">
+        <div class="ba">
+          <img class="img-before" src="assets/gallery/commercial/project1com/project1-before.jpeg" alt="Commercial floor before" loading="lazy" decoding="async" width="1200" height="900">
+          <img class="img-after"  src="assets/gallery/commercial/project1com/project1-after.jpeg"  alt="Commercial floor after"  loading="lazy" decoding="async" width="1200" height="900">
+          <span class="label before">Before</span>
+          <span class="label after">After</span>
+        </div>
+      </article>
+
+      <!-- COMMERCIAL 2 — BA -->
+      <article class="card" data-cat="commercial">
+        <div class="ba">
+          <img class="img-before" src="assets/gallery/commercial/commercial2-before.jpeg" alt="Commercial 2 before" loading="lazy" decoding="async" width="1200" height="900">
+          <img class="img-after"  src="assets/gallery/commercial/commercial2-after.jpeg"  alt="Commercial 2 after"  loading="lazy" decoding="async" width="1200" height="900">
+          <span class="label before">Before</span>
+          <span class="label after">After</span>
+        </div>
+      </article>
+
+      <!-- COMMERCIAL 3 — BDA -->
+      <article class="card" data-cat="commercial">
+        <div class="bda">
+          <figure class="ph">
+            <img src="assets/gallery/commercial/commercial3-before.jpeg" alt="Commercial 3 before" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">Before</figcaption>
+          </figure>
+          <figure class="ph">
+            <img src="assets/gallery/commercial/commercial3-during.jpeg" alt="Commercial 3 during" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">During</figcaption>
+          </figure>
+          <figure class="ph">
+            <img src="assets/gallery/commercial/commercial3-after.jpeg" alt="Commercial 3 after" loading="lazy" decoding="async" width="1200" height="900">
+            <figcaption class="chip">After</figcaption>
+          </figure>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div class="page-edge" aria-hidden="true"></div>
+
+  <script>
+    // Filters
+    const filters = document.querySelectorAll('.filter');
+    const cards   = document.querySelectorAll('.card');
+
+    function applyFilter(value){
+      cards.forEach(card => {
+        const cats = (card.getAttribute('data-cat')||'').split(/\s+/);
+        card.hidden = !((value === 'all') || cats.includes(value));
+      });
+    }
+
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(b => b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      applyFilter(btn.dataset.filter);
+    }));
+
+    // Reveal animation
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced){
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.animate(
+              [{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'translateY(0)'}],
+              {duration:350, easing:'ease-out'}
+            );
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold:.25});
+      document.querySelectorAll('.card').forEach(el => io.observe(el));
+    }
+  </script>
+</body>
+</html>

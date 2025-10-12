@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services — MJ Sanding</title>
+
+  <!-- Global fonts + styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=1">
+
+  <!-- Page-only CSS (scoped to classes used only on this page) -->
+  <style>
+    /* keep header CTA readable + highlight current nav */
+    .site-nav .btn-primary{ color:#fff !important; }
+    .site-nav a[aria-current="page"]{ border-bottom:2px solid var(--dark); padding-bottom:2px; }
+
+    /* HERO (uses your --wood-img from styles.css) */
+    .svc-hero{
+      background: var(--wood-img) center/cover no-repeat;
+      color:#fff; padding:88px 0 96px; text-align:center;
+    }
+    .svc-hero h1,.svc-hero p{ color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.25); }
+
+    /* SECTIONS */
+    .svc-section{ padding:48px 0; }
+    .svc-row{
+      display:grid; gap:28px;
+      grid-template-columns: 1.1fr .9fr;
+      align-items:start;
+    }
+    .svc-row.rev{ grid-template-columns: .9fr 1.1fr; }
+    @media (max-width:980px){ .svc-row,.svc-row.rev{ grid-template-columns:1fr; } }
+
+    .svc-copy h2{ font-family:"Poppins"; font-weight:700; margin:0 0 8px; color:var(--text); }
+    .svc-copy p{ margin:0 0 16px; }
+    .svc-copy .btn{ margin-top:10px; }
+
+    .svc-img{
+      position:relative; border:1px solid var(--border);
+      border-radius:16px; overflow:hidden; background:#f2f2f2;
+      box-shadow: var(--shadow);
+    }
+    .svc-img img{ display:block; width:100%; height:auto; }
+    .svc-badge{
+      position:absolute; left:14px; bottom:14px;
+      background: rgba(0,0,0,.65); color:#fff; padding:6px 10px;
+      border-radius:10px; font-weight:600; font-size:14px;
+    }
+
+    .svc-rule{ border-top:1px solid var(--border); margin:36px 0; }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <img src="img/logo.png" alt="MJ Sanding logo" class="brand-logo">
+        <span class="brand-text">MJ Sanding</span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="main-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="svc-hero">
+    <div class="container">
+      <h1>Our Services</h1>
+      <p>Expert floor sanding, staining, and restoration across Greater London.</p>
+    </div>
+  </section>
+
+  <!-- ===== Floor Sanding ===== -->
+  <section class="svc-section">
+    <div class="container svc-row">
+      <div class="svc-copy">
+        <h2>Floor Sanding</h2>
+        <p>Dust-controlled sanding for softwood and hardwood floors. Gap filling and edge sanding included.</p>
+        <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+      </div>
+      <figure class="svc-img">
+        <img src="assets/services-floor-before.jpg" alt="Floor sanding before/after">
+        <figcaption class="svc-badge">Before</figcaption>
+      </figure>
+    </div>
+    <div class="container"><div class="svc-rule"></div></div>
+  </section>
+
+  <!-- ===== Staining & Finishes (reversed) ===== -->
+  <section class="svc-section">
+    <div class="container svc-row rev">
+      <figure class="svc-img">
+        <img src="assets/services-staining.jpg" alt="Staining and finishes samples">
+      </figure>
+      <div class="svc-copy">
+        <h2>Staining &amp; Finishes</h2>
+        <p>Range of tones including oak, walnut, and custom colours. We use premium lacquers and oils (Bona, Osmo, Polyx) for long-lasting durability.</p>
+        <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+      </div>
+    </div>
+    <div class="container"><div class="svc-rule"></div></div>
+  </section>
+
+  <!-- ===== Repairs & Restoration ===== -->
+  <section class="svc-section">
+    <div class="container svc-row">
+      <div class="svc-copy">
+        <h2>Repairs &amp; Restoration</h2>
+        <p>From pet stains to damaged boards, we restore your floors with replacements, levelling, and refinishing. Domestic and light commercial.</p>
+        <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+      </div>
+      <figure class="svc-img">
+        <img src="assets/services-repair.jpg" alt="Board repair example">
+        <figcaption class="svc-badge">Repairs</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="y"></span> MJ Sanding — All rights reserved.</p>
+      <a href="#">Back to top</a>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle -->
+  <script>
+    const t=document.querySelector('.nav-toggle'), n=document.getElementById('main-nav');
+    if(t){t.addEventListener('click',()=>{const o=n.classList.toggle('open');t.setAttribute('aria-expanded',o);});}
+    document.getElementById('y').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
