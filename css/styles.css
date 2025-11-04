@@ -276,3 +276,28 @@ a:focus-visible, button:focus-visible{outline:3px solid #9b87f5; outline-offset:
 /* ============================== */
 .site-footer{ border-top:1px solid var(--border); background:#000 }
 .site-footer p{ margin:0; color:rgba(255,255,255,.86); text-align:center; padding:14px 0 }
+/* Make the mobile menu push content down instead of overlaying it */
+@media (max-width: 900px){
+  /* Header no longer needs to be sticky/fixed on mobile */
+  .site-header{ position: relative; }
+
+  /* Remove the global top padding you added to compensate for a fixed header */
+  body{ padding-top: 0; }
+
+  /* Put the menu back in normal flow and let it expand the header */
+  .site-nav{
+    position: static;          /* was absolute */
+    display: none;
+    width: 100%;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 20px;
+    gap: 14px;
+  }
+  .site-nav.open{ display: flex; }
+
+  /* Keep the CTA looking good full-width on mobile */
+  .site-nav .btn.btn-primary{ align-self: stretch; text-align: center; }
+}
