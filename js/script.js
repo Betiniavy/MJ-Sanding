@@ -24,3 +24,4 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 // Year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
+header?.classList.add('is-solid'); // keep Services solid like Gallery

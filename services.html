@@ -1,146 +1,523 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Services — MJ Sanding</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Services — MJ Sanding</title>
 
-  <!-- Global fonts + styles -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=1">
+<!-- FAVICONS -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/mjlogo.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/mjlogo.jpg">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/mjlogo.jpg">
+<link rel="manifest" href="assets/brand/site.webmanifest">
 
-  <!-- Page-only CSS (scoped to classes used only on this page) -->
-  <style>
-    /* keep header CTA readable + highlight current nav */
-    .site-nav .btn-primary{ color:#fff !important; }
-    .site-nav a[aria-current="page"]{ border-bottom:2px solid var(--dark); padding-bottom:2px; }
+<style>
+/* ============ PAGE-SCOPED TOKENS ============ */
+.page-services{
+  --bg:#fff9f1;
+  --text:#2d1a12;
+  --heading:#3a170c;
+  --muted:#6b5e56;
+  --line:#eadfce;
+  --panel:#ffffff;
+  --radius:16px;
+  --max:1120px;
+  --shadow:0 10px 30px rgba(0,0,0,.06);
+  --hero-img:url('assets/imghero.png');
+}
 
-    /* HERO (uses your --wood-img from styles.css) */
-    .svc-hero{
-      background: var(--wood-img) center/cover no-repeat;
-      color:#fff; padding:88px 0 96px; text-align:center;
-    }
-    .svc-hero h1,.svc-hero p{ color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.25); }
+/* ============ BASE (scoped) ============ */
+body.page-services{margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.65 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
+.page-services *{box-sizing:border-box}
+.page-services .container{max-width:var(--max);margin-inline:auto;padding:24px}
+.page-services h1,.page-services h2{color:var(--heading);margin:0 0 .45rem}
+.page-services h1{font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1.08}
+.page-services h2{font-weight:900;font-size:clamp(26px,3.4vw,34px);line-height:1.12}
+.page-services p{margin:0 0 .8rem}
+.page-services a{text-decoration:none;color:inherit}
 
-    /* SECTIONS */
-    .svc-section{ padding:48px 0; }
-    .svc-row{
-      display:grid; gap:28px;
-      grid-template-columns: 1.1fr .9fr;
-      align-items:start;
-    }
-    .svc-row.rev{ grid-template-columns: .9fr 1.1fr; }
-    @media (max-width:980px){ .svc-row,.svc-row.rev{ grid-template-columns:1fr; } }
+/* ============ STICKY HEADER (match Gallery) ============ */
+.ps-header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(250,247,243,.92);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:saturate(1.05) blur(6px);
+}
+.ps-inner{height:64px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+.ps-brand{display:flex; align-items:center; gap:10px; font-weight:900; color:var(--heading)}
+.ps-brand img{width: auto;px; height: 75px;px; object-fit:contain}
 
-    .svc-copy h2{ font-family:"Poppins"; font-weight:700; margin:0 0 8px; color:var(--text); }
-    .svc-copy p{ margin:0 0 16px; }
-    .svc-copy .btn{ margin-top:10px; }
+/* desktop nav + actions */
+.ps-navwrap{display:flex; align-items:center; gap:20px}
+.ps-nav{display:flex; align-items:center; gap:22px}
+.ps-nav a{
+  font-weight:700; font-size:14.5px; color:var(--heading);
+  padding:6px 2px; border-bottom:2px solid transparent;
+}
+.ps-nav a:hover{border-bottom-color:rgba(58,23,12,.3)}
+.ps-nav a[aria-current="page"], .ps-nav a.active{border-bottom-color:var(--heading)}
+.ps-actions .ps-cta{
+  display:inline-block; padding:9px 12px; border-radius:10px;
+  background:#fff; color:var(--heading); font-weight:800; border:1px solid #e7d9c8; box-shadow:0 6px 18px rgba(0,0,0,.04)
+}
 
-    .svc-img{
-      position:relative; border:1px solid var(--border);
-      border-radius:16px; overflow:hidden; background:#f2f2f2;
-      box-shadow: var(--shadow);
-    }
-    .svc-img img{ display:block; width:100%; height:auto; }
-    .svc-badge{
-      position:absolute; left:14px; bottom:14px;
-      background: rgba(0,0,0,.65); color:#fff; padding:6px 10px;
-      border-radius:10px; font-weight:600; font-size:14px;
-    }
+/* mobile controls */
+.ps-toggle{display:none; background:none; border:0; padding:8px; cursor:pointer}
+.ps-toggle span{display:block; width:22px; height:2px; background:var(--heading); margin:5px 0; border-radius:2px}
 
-    .svc-rule{ border-top:1px solid var(--border); margin:36px 0; }
-  </style>
+@media (max-width:900px){
+  .ps-toggle{display:block}
+  .ps-navwrap{position:absolute; left:0; right:0; top:64px; display:none}
+  .ps-navwrap.open{display:block}
+  .ps-nav{
+    background:#fff; border-bottom:1px solid var(--line);
+    flex-direction:column; align-items:flex-start;
+    gap:14px; padding:14px 24px;
+  }
+  .ps-actions{padding:10px 24px; background:#fff; border-bottom:1px solid var(--line)}
+}
+
+/* ============ HERO ============ */
+.page-services .hero{
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.25)),
+    var(--hero-img) center/cover no-repeat;
+  color:#fff; text-align:center;
+  padding:72px 18px 68px;
+  border-bottom:1px solid var(--line);
+}
+.page-services .hero h1{color:#fff; margin-bottom:10px}
+.page-services .hero .lead{max-width:760px;margin:0 auto;opacity:.95;font-size:18px}
+
+/* ============ SECTION ROWS ============ */
+.page-services .section{padding:28px 0}
+.page-services .divider{height:1px;background:var(--line);margin:18px 0 22px}
+
+/* two-column rows */
+.page-services .row{
+  display:grid; gap:22px; align-items:center;
+  grid-template-columns: 1fr 1.15fr;
+}
+.page-services .row.alt{ grid-template-columns: 1.15fr 1fr; }
+@media (max-width:900px){
+  .page-services .row,
+  .page-services .row.alt{ grid-template-columns:1fr }
+}
+
+/* image card */
+.page-services .photo{
+  border-radius:14px; overflow:hidden;
+  border:1px solid var(--line);
+  background:#000; position:relative;
+  box-shadow:var(--shadow);
+  min-height:300px;
+}
+@media (max-width:900px){ .page-services .photo{ min-height:240px } }
+.page-services .photo img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+}
+.page-services .chip{
+  position:absolute; left:12px; bottom:12px;
+  background:rgba(0,0,0,.55); color:#fff; font-weight:700;
+  padding:6px 10px; border-radius:999px; font-size:12.5px; letter-spacing:.2px;
+}
+
+/* text & button */
+.page-services .text p{color:var(--muted); font-size:17px; max-width:560px}
+.page-services .btn{
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--heading); color:#fff; border:1px solid #c8b7a4;
+  padding:12px 16px; border-radius:12px; font-weight:800;
+}
+.page-services .btn:hover{filter:brightness(1.07)}
+
+/* ===== WHY CHOOSE US ===== */
+.page-services .why{padding:18px 0 8px}
+.page-services .why h2{margin-bottom:6px;color:var(--heading)}
+.page-services .why .lead{color:var(--muted);margin:0 0 14px}
+.page-services .why-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:28px 32px; align-items:start;
+}
+@media (max-width:720px){ .page-services .why-grid{grid-template-columns:1fr} }
+.page-services .why-card{
+  background:transparent;border:0;padding:6px 0;
+  display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;
+}
+.page-services .why-ico{
+  width:56px;height:56px;border-radius:999px;display:grid;place-items:center;
+  background:#fff;border:1px solid var(--line);color:var(--heading);
+  box-shadow:0 1px 0 rgba(0,0,0,.04)
+}
+.page-services .why-ico svg{width:22px;height:22px}
+.page-services .why-title{font-weight:800;margin:0 0 6px;color:var(--heading);font-size:clamp(18px,2.4vw,20px)}
+.page-services .why-text{margin:0;color:var(--muted);font-size:16px;line-height:1.6;max-width:520px}
+
+/* ===== FAQ ===== */
+.page-services .faq{padding:6px 0 10px}
+.page-services .faq h2{margin-bottom:10px}
+.page-services details{
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:12px 14px; margin-top:10px;
+}
+.page-services summary{list-style:none;cursor:pointer;font-weight:800;color:var(--heading)}
+.page-services summary::-webkit-details-marker{display:none}
+.page-services details p{margin:.6rem 0 0;color:var(--muted)}
+.page-services .faq .hint{margin-top:12px}
+
+/* CTA & Contact */
+.page-services .cta{background:#2a140b;color:#fff;border-radius:18px;padding:22px}
+.page-services .cta h2,.page-services .cta p{color:#fff;opacity:1}
+.page-services .cta .btn{background:#fff;color:var(--heading);border-color:#fff}
+
+.page-services .contact-simple .contact-chips{display:flex; gap:10px; flex-wrap:wrap}
+.page-services .contact-simple .contact-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:999px; background:#fff;
+  border:1px solid var(--line); color:#4a3a32; font-size:14px;
+}
+.page-services .contact-simple .contact-chip svg{width:16px; height:16px; flex:0 0 16px}
+.page-services .contact-simple .contact-chip:hover{filter:brightness(1.03)}
+</style>
 </head>
-<body>
-  <!-- ===== Header ===== -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand">
-        <img src="img/logo.png" alt="MJ Sanding logo" class="brand-logo">
-        <span class="brand-text">MJ Sanding</span>
-      </a>
-      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
-      <nav class="site-nav" id="main-nav">
+
+<body class="page-services">
+
+<!-- ===== STICKY HEADER (match Gallery) ===== -->
+<header class="ps-header" role="navigation" aria-label="Primary">
+  <div class="container ps-inner">
+    <a class="ps-brand" href="index.html">
+      <img src="assets/Svg logo.svg" alt="MJ Sanding logo" />
+      <span>MJ Sanding</span>
+    </a>
+
+    <button class="ps-toggle" aria-label="Open menu" aria-controls="ps-navwrap" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div id="ps-navwrap" class="ps-navwrap">
+      <nav class="ps-nav" aria-label="Main">
         <a href="index.html">Home</a>
         <a href="services.html" aria-current="page">Services</a>
         <a href="gallery.html">Gallery</a>
-        <a href="about.html">About</a>
+        <a href="about.html">About Us</a>
         <a href="testimonials.html">Testimonials</a>
-        <a href="contact.html">Contact</a>
-        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+        <a href="contact.html">Contact Us</a>
       </nav>
+      <div class="ps-actions">
+        <a class="ps-cta" href="contact.html#quote">GET A QUOTE</a>
+      </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- ===== Hero ===== -->
-  <section class="svc-hero">
-    <div class="container">
-      <h1>Our Services</h1>
-      <p>Expert floor sanding, staining, and restoration across Greater London.</p>
-    </div>
-  </section>
+<!-- HERO -->
+<header class="hero" role="banner" aria-label="Services header">
+  <div class="container">
+    <h1>Our Services</h1>
+    <p class="lead">Expert floor sanding, staining, and restoration across Greater&nbsp;London.</p>
+  </div>
+</header>
 
-  <!-- ===== Floor Sanding ===== -->
-  <section class="svc-section">
-    <div class="container svc-row">
-      <div class="svc-copy">
+<main>
+
+  <!-- SERVICES LIST -->
+  <div class="container section">
+
+    <!-- Floor Sanding -->
+    <div class="row">
+      <div class="text">
         <h2>Floor Sanding</h2>
         <p>Dust-controlled sanding for softwood and hardwood floors. Gap filling and edge sanding included.</p>
-        <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+        <a class="btn" href="contact.html#quote?service=Floor%20Sanding">Request a Quote</a>
       </div>
-      <figure class="svc-img">
-        <img src="assets/services-floor-before.jpg" alt="Floor sanding before/after">
-        <figcaption class="svc-badge">Before</figcaption>
+      <figure class="photo" aria-label="Before and after floor sanding">
+        <img src="assets/gallery/livingroom/livingroom2-after.jpeg" alt="Room floor before/after sanding">
+        <span class="chip">Before</span>
       </figure>
     </div>
-    <div class="container"><div class="svc-rule"></div></div>
-  </section>
 
-  <!-- ===== Staining & Finishes (reversed) ===== -->
-  <section class="svc-section">
-    <div class="container svc-row rev">
-      <figure class="svc-img">
-        <img src="assets/services-staining.jpg" alt="Staining and finishes samples">
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- Staining & Finishes -->
+    <div class="row alt">
+      <figure class="photo" aria-label="Stain samples and finished boards">
+        <img src="assets/gallery/livingroom/livingroom3-after.jpeg" alt="Different wood stain tones">
       </figure>
-      <div class="svc-copy">
+      <div class="text">
         <h2>Staining &amp; Finishes</h2>
-        <p>Range of tones including oak, walnut, and custom colours. We use premium lacquers and oils (Bona, Osmo, Polyx) for long-lasting durability.</p>
-        <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+        <p>Range of tones with sample patches to choose from. Durable lacquers or natural oils for long-lasting results.</p>
+        <a class="btn" href="contact.html#quote?service=Staining%20%26%20Finishes">Request a Quote</a>
       </div>
     </div>
-    <div class="container"><div class="svc-rule"></div></div>
-  </section>
 
-  <!-- ===== Repairs & Restoration ===== -->
-  <section class="svc-section">
-    <div class="container svc-row">
-      <div class="svc-copy">
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- Repairs & Restoration -->
+    <div class="row">
+      <div class="text">
         <h2>Repairs &amp; Restoration</h2>
-        <p>From pet stains to damaged boards, we restore your floors with replacements, levelling, and refinishing. Domestic and light commercial.</p>
-        <a class="btn btn-primary" href="contact.html">Request a Quote</a>
+        <p>From pet stains to damaged boards: replacements, leveling, refinishing. Domestic and light commercial.</p>
+        <a class="btn" href="contact.html#quote?service=Repairs%20%26%20Restoration">Request a Quote</a>
       </div>
-      <figure class="svc-img">
-        <img src="assets/services-repair.jpg" alt="Board repair example">
-        <figcaption class="svc-badge">Repairs</figcaption>
+      <figure class="photo" aria-label="Board repair detail">
+        <img src="assets/gallery/commercial/commercial2-after.jpeg" alt="Replaced floorboard blended into existing floor">
+        <span class="chip">Repairs</span>
       </figure>
     </div>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- Insulation -->
+    <div class="row alt">
+      <figure class="photo" aria-label="Underfloor insulation install">
+        <img src="assets/gallery/bedroom/project1bed/bedroom1-before.jpeg" alt="Underfloor insulation being installed">
+      </figure>
+      <div class="text">
+        <h2>Insulation</h2>
+        <p>Warmer rooms and quieter floors. We install underfloor insulation and acoustics where accessible, then refit boards cleanly.</p>
+        <a class="btn" href="contact.html#quote?service=Insulation">Request a Quote</a>
+      </div>
+    </div>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- Parquet Floor Fixing & Regluing -->
+    <div class="row">
+      <div class="text">
+        <h2>Parquet Floor Fixing &amp; Regluing</h2>
+        <p>We lift loose blocks, clean the bed, and reglue with modern adhesives, then sand and blend so repairs disappear.</p>
+        <a class="btn" href="contact.html#quote?service=Parquet%20Fixing%20%26%20Regluing">Request a Quote</a>
+      </div>
+      <figure class="photo" aria-label="Parquet blocks being re-laid">
+        <img src="assets/gallery/stairs/projectstairs1/stairs1-after.jpeg" alt="Parquet blocks fixed and reglue in progress">
+        <span class="chip">Parquet</span>
+      </figure>
+    </div>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- Hardwood & Engineered Floor Laying -->
+    <div class="row alt">
+      <figure class="photo" aria-label="New hardwood/engineered installation">
+        <img src="assets/gallery/livingroom/livingroom3-after.jpeg" alt="Hardwood and engineered floor laying in progress">
+      </figure>
+      <div class="text">
+        <h2>Hardwood &amp; Engineered Floor Laying</h2>
+        <p>Supply & fitting of solid hardwood and engineered boards. Subfloor prep, professional layout, and ready for finishing.</p>
+        <a class="btn" href="contact.html#quote?service=Hardwood%20%26%20Engineered%20Laying">Request a Quote</a>
+      </div>
+    </div>
+
+  </div><!-- /.container.section -->
+
+  <!-- Divider BEFORE Why choose us -->
+  <div class="container"><div class="divider" role="separator" aria-hidden="true"></div></div>
+
+  <!-- PRODUCTS WE USE -->
+  <section class="container section" aria-labelledby="products-h" style="text-align:center;">
+    <h2 id="products-h" style="font-weight:900;color:var(--heading);margin-bottom:10px;">Products We Use</h2>
+    <p class="lead" style="margin-bottom:26px;">We use trusted, professional-grade materials and finishes.</p>
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:40px;">
+      <img src="assets/brands/bona-logo.jpeg" alt="Bona logo" style="height:48px;object-fit:contain;">
+      <img src="assets/brands/junckers-logo.jpeg" alt="Loba logo" style="height:52px;object-fit:contain;">
+      <img src="assets/brands/osmo-logo.jpeg" alt="Fiddes logo" style="height:50px;object-fit:contain;">
+      <img src="assets/brands/morrells.jpeg" alt="morrells logo" style="height:50px;object-fit:contain;">
+      <img src="assets/brands/loba.jpeg" alt="loga logo" style="height:50px;object-fit:contain;">
+
+    </div>
   </section>
 
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="y"></span> MJ Sanding — All rights reserved.</p>
-      <a href="#">Back to top</a>
-    </div>
-  </footer>
+  <div class="container"><div class="divider" role="separator" aria-hidden="true"></div></div>
 
-  <!-- Mobile nav toggle -->
-  <script>
-    const t=document.querySelector('.nav-toggle'), n=document.getElementById('main-nav');
-    if(t){t.addEventListener('click',()=>{const o=n.classList.toggle('open');t.setAttribute('aria-expanded',o);});}
-    document.getElementById('y').textContent=new Date().getFullYear();
-  </script>
+  <!-- WHY CHOOSE US -->
+  <section class="container why" aria-labelledby="why-h">
+    <h2 id="why-h">Why Choose Us</h2>
+    <p class="lead">Skilled trades, tidy work, and finishes that last.</p>
+
+    <div class="why-grid">
+      <article class="why-card">
+        <div class="why-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <p class="why-title">12+ years’ experience</p>
+          <p class="why-text">Specialist floor sanding and restoration, day in and day out. We know how different woods behave and how to avoid swirl marks. Clean edges, level passes, and predictable results.</p>
+        </div>
+      </article>
+
+      <article class="why-card">
+        <div class="why-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.6 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <p class="why-title">Trusted in London & across the UK</p>
+          <p class="why-text">Local, punctual, and tidy—from city flats to family homes. We protect doorways and vents, and leave rooms ready to use. Clear comms from quote to finish.</p>
+        </div>
+      </article>
+
+      <article class="why-card">
+        <div class="why-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 17l-5.5 2.9 1-6L3 9.6l6.2-.9L12 3l2.8 5.7 6.2.9-4.5 4.3 1 6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <p class="why-title">5★ reviews</p>
+          <p class="why-text">Homeowners and landlords consistently recommend us. Honest scope, neat finishes, and careful cure guidance. The kind of work you’re happy to show off.</p>
+        </div>
+      </article>
+
+      <article class="why-card">
+        <div class="why-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="why-title">Fixed, written quotes</p>
+          <p class="why-text">No vague allowances or moving targets. You’ll know what’s included, timeline, and finish options. No surprises on the invoice.</p>
+        </div>
+      </article>
+
+      <article class="why-card">
+        <div class="why-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-16 0" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="why-title">Dust-controlled</p>
+          <p class="why-text">HEPA extraction, doorway masking, and tidy workflow. We prep properly and finish cleanly. Less mess, better finish, quicker handover.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container" style="padding-block:14px 40px">
+    <div class="cta">
+      <div style="display:flex;gap:18px;justify-content:space-between;align-items:center;flex-wrap:wrap">
+        <div style="max-width:720px">
+          <h2 style="margin:0 0 6px;font-size:clamp(22px,3.2vw,30px)">Ready to restore your floors?</h2>
+          <p style="margin:0">Send your postcode, room sizes and a couple of photos — we’ll send a fixed quote.</p>
+        </div>
+        <a class="btn" href="contact.html#quote">Request a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ (before Contact Us) -->
+  <section class="container faq" aria-labelledby="faq-h" style="padding-block:10px 22px">
+    <h2 id="faq-h">FAQs</h2>
+
+    <details>
+      <summary>Is sanding very dusty?</summary>
+      <p>We use modern HEPA extractors and mask doorways/vents. Dust is kept to a minimum and we tidy before we leave.</p>
+    </details>
+
+    <details>
+      <summary>How long before we can walk on the floor?</summary>
+      <p>Usually after <strong>2–3 hours</strong> in socks. Light use the next day; full cure is <strong>3–4 days</strong> depending on the product.</p>
+    </details>
+
+    <details>
+      <summary>What finish do you recommend—oil or lacquer?</summary>
+      <p>Oils look warm and are easy to spot-repair. Lacquers are tougher overall and need less maintenance. We’ll suggest the best match for traffic and look.</p>
+    </details>
+
+    <details>
+      <summary>Do you move furniture?</summary>
+      <p>We can help with lighter items. Please arrange heavy pieces and empty rooms as much as possible—ask if you need a moving option.</p>
+    </details>
+
+    <details>
+      <summary>Can you repair gaps and damaged boards?</summary>
+      <p>Yes—gap filling, slivers, loose parquet blocks, and board replacements. We blend repairs to match the surrounding floor.</p>
+    </details>
+
+    <details>
+      <summary>How long does a typical job take?</summary>
+      <p>Most rooms are <strong>1–2 days</strong>. Larger homes, staining, or repairs can add time—we’ll confirm in the quote.</p>
+    </details>
+
+    <details>
+      <summary>Will there be strong odours?</summary>
+      <p>We use low-odour, low-VOC products wherever possible. Keep windows slightly open during curing for best results.</p>
+    </details>
+
+    <details>
+      <summary>Do you work weekends?</summary>
+      <p>Weekdays as standard; <strong>Weekends, Bank hoildays and Night slots</strong> are available on request. We’ll plan around access and building rules.</p>
+    </details>
+
+    <p class="hint">Still unsure? <a href="contact.html#quote"><strong>Request a quote</strong></a> and we’ll advise on the best finish for your space.</p>
+  </section>
+
+  <!-- CONTACT US (simple) -->
+  <section class="container contact-simple" aria-labelledby="contact-simple-h" style="padding-block:18px 36px">
+    <h2 id="contact-simple-h" style="font-size:clamp(22px,3.2vw,30px); margin:0 0 10px">Contact us</h2>
+    <div class="contact-chips contact-chips--row">
+      <a class="contact-chip" href="https://instagram.com/mjsanding" target="_blank" rel="noopener" aria-label="Instagram @mjsanding">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        @mjsanding
+      </a>
+
+      <a class="contact-chip" href="mailto:info@mjsanding.co.uk" aria-label="Email info@mjsanding.co.uk">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        info@mjsanding.co.uk
+      </a>
+
+      <a class="contact-chip" href="tel:+447000000000" aria-label="Call +44 7000 000000">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.5 3.5l3 2a2 2 0 0 1 .8 2.3l-.6 1.9a2 2 0 0 0 .5 2l2.1 2.1a2 2 0 0 0 2 .5l1.9-.6a2 2 0 0 1 2.3.8l2 3a2 2 0 0 1-.9 2.9c-3.7 1.5-8.2-.1-12-3.9S4 7.1 5.5 3.4a2 2 0 0 1 3-.9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        +44 7000 000000
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="container" style="border-top:1px solid var(--line);padding-block:20px;color:#6b5e56">
+  <small>© <span id="y"></span> MJ Sanding</small>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle (same behaviour as Gallery)
+  const toggle = document.querySelector('.ps-toggle');
+  const wrap = document.getElementById('ps-navwrap');
+  if (toggle && wrap){
+    const setOpen = (open) => {
+      wrap.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      // lock scroll on small screens
+      document.body.style.overflow = open && matchMedia('(max-width:900px)').matches ? 'hidden' : '';
+    };
+    toggle.addEventListener('click', () => setOpen(!wrap.classList.contains('open')));
+    // close after clicking a link
+    wrap.addEventListener('click', (e)=>{ if(e.target.tagName === 'A') setOpen(false); });
+    // close on Esc
+    window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') setOpen(false); });
+  }
+
+  // Active link highlight (works even if paths differ)
+  (function(){
+    const path = location.pathname.toLowerCase().replace(/\/$/, '');
+    document.querySelectorAll('.ps-nav a').forEach(a => {
+      const href = (a.getAttribute('href')||'').toLowerCase().replace(/\/$/, '');
+      if(!href) return;
+      if(path.endsWith(href) || (href !== 'index.html' && path.includes(href))){
+        a.classList.add('active');
+        if(!a.hasAttribute('aria-current')) a.setAttribute('aria-current','page');
+      }
+    });
+  })();
+</script>
 </body>
 </html>

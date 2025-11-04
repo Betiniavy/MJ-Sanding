@@ -4,62 +4,182 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Testimonials — MJ Sanding</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=1">
+
+  <style>
+    /* ===== Theme (match Gallery/Services) ===== */
+    .page-testimonials{
+      --bg:#fff6ed; --bg-2:#f7efe5; --text:#2b2b2b; --muted:#7a6a55;
+      --heading:#3a170c; --brand:#3a170c; --line:#eadfce;
+      --panel:#ffffff; --radius:16px; --max:1120px;
+      --shadow:0 12px 32px rgba(0,0,0,.08);
+      --hero-img:url('assets/imghero.png');
+    }
+    body.page-testimonials{margin:0; color:var(--text);
+      background:radial-gradient(1400px 600px at 50% -220px,#fff 0%,var(--bg) 55%,var(--bg-2) 100%);
+      font:16px/1.65 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
+    .page-testimonials *{box-sizing:border-box}
+    .container{max-width:var(--max);margin-inline:auto;padding:24px 22px}
+    h1,h2{color:var(--heading);margin:0}
+
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible{outline:3px solid #9b87f5; outline-offset:2px; border-radius:10px}
+    img{max-width:100%; display:block}
+
+    /* ===== Header (solid cream, brown text) ===== */
+    .ps-header{position:sticky; top:0; z-index:50; background:rgba(250,247,243,.92);
+      border-bottom:1px solid var(--line); backdrop-filter:saturate(1.05) blur(6px)}
+    .ps-inner{height:64px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .ps-brand{display:flex; align-items:center; gap:10px; font-weight:900; color:var(--heading)}
+    .ps-brand img{width:36px; height:36px; object-fit:contain}
+
+    .ps-navwrap{display:flex; align-items:center; gap:20px}
+    .ps-nav{display:flex; align-items:center; gap:22px}
+    .ps-nav a{font-weight:700; font-size:14.5px; color:var(--heading); padding:6px 2px; border-bottom:2px solid transparent}
+    .ps-nav a:hover{border-bottom-color:rgba(58,23,12,.3)}
+    .ps-nav a[aria-current="page"], .ps-nav a.active{border-bottom-color:var(--heading)}
+    .ps-actions .ps-cta{display:inline-block; padding:9px 12px; border-radius:10px; background:#fff; color:var(--heading);
+      font-weight:800; border:1px solid #e7d9c8; box-shadow:0 6px 18px rgba(0,0,0,.04)}
+
+    .ps-toggle{display:none; background:none; border:0; padding:8px; cursor:pointer}
+    .ps-toggle span{display:block; width:22px; height:2px; background:var(--heading); margin:5px 0; border-radius:2px}
+
+    @media (max-width:900px){
+      .ps-toggle{display:block}
+      .ps-navwrap{position:absolute; left:0; right:0; top:64px; display:none}
+      .ps-navwrap.open{display:block}
+      .ps-nav{background:#fff; border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; gap:14px; padding:14px 24px}
+      .ps-actions{padding:10px 24px; background:#fff; border-bottom:1px solid var(--line)}
+    }
+
+    /* ===== Hero (wood image) ===== */
+    .hero{background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.25)), var(--hero-img) center/cover no-repeat;
+      color:#fff; text-align:center; padding:72px 18px 68px; border-bottom:1px solid var(--line)}
+    .hero h1{color:#fff; font-weight:900; font-size:clamp(34px,5vw,56px); line-height:1.08; margin:0 0 10px}
+    .hero .lead{max-width:760px; margin:0 auto; opacity:.95; font-size:18px}
+
+    /* ===== Testimonials grid/cards ===== */
+    .section{padding:28px 0}
+    .grid{display:grid; gap:18px; grid-template-columns:repeat(12,1fr)}
+    @media (max-width:1200px){.grid{grid-template-columns:repeat(9,1fr)}}
+    @media (max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+    .card{grid-column:span 6; background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:var(--shadow)}
+    .stars{color:#c48a55; letter-spacing:1px; font-size:14px; margin-bottom:6px}
+    .review{margin:.2rem 0 .4rem; color:#3b322b}
+    .author{font-weight:800; color:var(--heading)}
+    .divider{height:1px; background:var(--line); margin:18px 0 22px}
+
+    footer small{color:#6b5e56}
+  </style>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand">
-        <img src="img/logo.png" alt="MJ Sanding logo" class="brand-logo">
-        <span class="brand-text">MJ Sanding</span>
+
+<body class="page-testimonials">
+  <!-- Header -->
+  <header class="ps-header" role="navigation" aria-label="Primary">
+    <div class="container ps-inner">
+      <a class="ps-brand" href="index.html">
+        <img src="assets/mjlogo.jpg" alt="MJ Sanding logo" />
+        <span>MJ Sanding</span>
       </a>
-      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
-      <nav class="site-nav" id="main-nav">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="about.html">About Us</a>
-        <a href="testimonials.html" aria-current="page">Testimonials</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="contact.html" class="btn btn-primary">Get a Quote</a>
-      </nav>
+
+      <button class="ps-toggle" aria-label="Open menu" aria-controls="ps-navwrap" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div id="ps-navwrap" class="ps-navwrap">
+        <nav class="ps-nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="about.html">About Us</a>
+          <a href="testimonials.html" aria-current="page">Testimonials</a>
+          <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="ps-actions">
+          <a class="ps-cta" href="contact.html#quote">GET A QUOTE</a>
+        </div>
+      </div>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container hero-inner">
-      <h1>What Clients Say</h1>
-      <p>Recent reviews from homeowners and businesses.</p>
-    </div>
-  </section>
-
-  <section class="section">
+  <!-- Hero -->
+  <header class="hero" role="banner" aria-label="Testimonials header">
     <div class="container">
-      <article class="card" style="margin-bottom:12px">
+      <h1>What Clients Say</h1>
+      <p class="lead">Recent reviews from homeowners and businesses.</p>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="container section">
+    <section class="grid" aria-label="Testimonials" role="list">
+      <article class="card" role="listitem">
         <div class="stars" aria-label="5 stars">★★★★★</div>
         <p class="review">“Professional and efficient — our floors look amazing!”</p>
-        <p><strong>Sarah H.</strong></p>
+        <p class="author">Sarah H.</p>
       </article>
-      <article class="card">
+
+      <article class="card" role="listitem">
         <div class="stars" aria-label="5 stars">★★★★★</div>
         <p class="review">“Great communication and tidy workmanship. Highly recommend.”</p>
-        <p><strong>James D.</strong></p>
+        <p class="author">James D.</p>
       </article>
-    </div>
-  </section>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="y"></span> MJ Sanding — All rights reserved.</p>
-      <a href="#">Back to top</a>
-    </div>
+      <article class="card" role="listitem">
+        <div class="stars" aria-label="5 stars">★★★★★</div>
+        <p class="review">“They matched the stain perfectly and left everything spotless. Will use again.”</p>
+        <p class="author">Aisha K.</p>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="stars" aria-label="5 stars">★★★★★</div>
+        <p class="review">“Fixed our loose parquet blocks and blended the finish — can’t even see the repairs.”</p>
+        <p class="author">Daniel R.</p>
+      </article>
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <section style="text-align:center">
+      <a class="ps-cta" href="contact.html#quote">GET A QUOTE</a>
+    </section>
+  </main>
+
+  <footer class="container" style="border-top:1px solid var(--line);padding-block:20px;color:#6b5e56">
+    <small>© <span id="y"></span> MJ Sanding — All rights reserved.</small>
   </footer>
 
   <script>
-    const t=document.querySelector('.nav-toggle'), n=document.getElementById('main-nav');
-    if(t){t.addEventListener('click',()=>{const o=n.classList.toggle('open');t.setAttribute('aria-expanded',o);});}
-    document.getElementById('y').textContent=new Date().getFullYear();
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle + scroll lock + close on link/Esc
+    const toggle = document.querySelector('.ps-toggle');
+    const wrap = document.getElementById('ps-navwrap');
+    if (toggle && wrap){
+      const setOpen = (open) => {
+        wrap.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open && matchMedia('(max-width:900px)').matches ? 'hidden' : '';
+      };
+      toggle.addEventListener('click', () => setOpen(!wrap.classList.contains('open')));
+      wrap.addEventListener('click', (e)=>{ if(e.target.tagName === 'A') setOpen(false); });
+      window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') setOpen(false); });
+    }
+
+    // Active link highlight (resilient if paths differ)
+    (function(){
+      const path = location.pathname.toLowerCase().replace(/\/$/, '');
+      document.querySelectorAll('.ps-nav a').forEach(a => {
+        const href = (a.getAttribute('href')||'').toLowerCase().replace(/\/$/, '');
+        if(!href) return;
+        if(path.endsWith(href) || (href !== 'index.html' && path.includes(href))){
+          a.classList.add('active');
+          if(!a.hasAttribute('aria-current')) a.setAttribute('aria-current','page');
+        }
+      });
+    })();
   </script>
 </body>
 </html>

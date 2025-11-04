@@ -6,292 +6,373 @@
   <title>Gallery — MJ Sanding</title>
 
   <style>
-    :root{
-      --bg:#f1e7d6; --bg-2:#e9ddc7; --text:#2b2b2b; --muted:#7a6a55;
-      --brand:#3a2f21; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.10);
-      --maxw:1200px;
+    /* =========================
+       THEME (matches your site)
+       ========================= */
+    .page-gallery{
+      --bg:#fff6ed; --bg-2:#f7efe5; --text:#2b2b2b; --muted:#7a6a55;
+      --heading:#3a170c; --brand:#3a170c; --line:#eadfce;
+      --panel:#ffffff; --radius:16px; --max:1120px;
+      --shadow:0 12px 32px rgba(0,0,0,.08);
+      --hero-img:url('assets/imghero.png');
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      line-height:1.6; color:var(--text);
-      background:radial-gradient(1400px 600px at 50% -200px,#fff 0%,var(--bg) 60%,var(--bg-2) 100%);
-    }
-    figure{margin:0}
+    body.page-gallery{margin:0; color:var(--text);
+      background:radial-gradient(1400px 600px at 50% -220px,#fff 0%,var(--bg) 55%,var(--bg-2) 100%);
+      font:16px/1.65 system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
+    .page-gallery *{box-sizing:border-box}
+    .container{max-width:var(--max);margin-inline:auto;padding:24px 22px}
+    h1,h2{color:var(--heading);margin:0}
 
-    /* ===== Container & Filters ===== */
-    .container{max-width:var(--maxw); margin:0 auto; padding:32px 20px 80px}
-    .filters{
-      display:flex; gap:22px; align-items:center; flex-wrap:wrap;
-      padding:12px 8px; border-bottom:1px solid rgba(0,0,0,.06)
-    }
-    .filter{
-      appearance:none; background:none; border:none; padding:8px 2px;
-      font:inherit; color:var(--brand); opacity:.85; cursor:pointer; position:relative
-    }
-    .filter[aria-pressed="true"], .filter:is(:hover,:focus-visible){opacity:1}
-    .filter[aria-pressed="true"]::after{
-      content:""; position:absolute; left:0; right:0; bottom:-6px;
-      height:3px; background:var(--brand); border-radius:2px
+    /* =========================
+       ACCESSIBILITY BASICS
+       ========================= */
+    a{color:inherit;text-decoration:none}
+    a:focus-visible, button:focus-visible{outline:3px solid #9b87f5; outline-offset:2px; border-radius:10px}
+    img{max-width:100%; display:block}
+
+    /* =========================
+       HEADER (sticky + mobile)
+       ========================= */
+    .ps-header{position:sticky; top:0; z-index:50; background:rgba(250,247,243,.92);
+      border-bottom:1px solid var(--line); backdrop-filter:saturate(1.05) blur(6px)}
+    .ps-inner{height:64px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .ps-brand{display:flex; align-items:center; gap:10px; font-weight:900; color:var(--heading)}
+    .ps-brand img{width:36px; height:36px; object-fit:contain}
+
+    /* Nav: desktop */
+    .ps-navwrap{display:flex; align-items:center; gap:20px}
+    .ps-nav{display:flex; align-items:center; gap:22px}
+    .ps-nav a{font-weight:700; font-size:14.5px; color:var(--heading); padding:6px 2px; border-bottom:2px solid transparent}
+    .ps-nav a:hover{border-bottom-color:rgba(58,23,12,.3)}
+    .ps-nav a[aria-current="page"], .ps-nav a.active{border-bottom-color:var(--heading)}
+    .ps-actions .ps-cta{display:inline-block; padding:9px 12px; border-radius:10px; background:#fff; color:var(--heading); font-weight:800; border:1px solid #e7d9c8; box-shadow:0 6px 18px rgba(0,0,0,.04)}
+
+    /* Mobile controls */
+    .ps-toggle{display:none; background:none; border:0; padding:8px; cursor:pointer}
+    .ps-toggle span{display:block; width:22px; height:2px; background:var(--heading); margin:5px 0; border-radius:2px}
+
+    @media (max-width:900px){
+      .ps-toggle{display:block}
+      .ps-navwrap{position:absolute; left:0; right:0; top:64px; display:none}
+      .ps-navwrap.open{display:block}
+      .ps-nav{background:#fff; border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; gap:14px; padding:14px 24px}
+      .ps-actions{padding:10px 24px; background:#fff; border-bottom:1px solid var(--line)}
     }
 
-    /* ===== Grid of Cards ===== */
-    .grid{display:grid; gap:22px; padding-top:18px; grid-template-columns:repeat(12,1fr)}
+    /* =========================
+       HERO
+       ========================= */
+    .hero{background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.25)), var(--hero-img) center/cover no-repeat;
+      color:#fff; text-align:center; padding:72px 18px 68px; border-bottom:1px solid var(--line)}
+    .hero h1{color:#fff; font-weight:900; font-size:clamp(34px,5vw,56px); line-height:1.08; margin:0 0 10px}
+    .hero .lead{max-width:760px; margin:0 auto; opacity:.95; font-size:18px}
+
+    .title{font-weight:900; font-size:clamp(26px,3.4vw,34px); line-height:1.12}
+    .lead{color:var(--muted)}
+    .divider{height:1px; background:var(--line); margin:14px 0 18px; opacity:.9}
+
+    /* =========================
+       FILTER PILLS
+       ========================= */
+    .filters{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .chip{appearance:none; background:#fff; color:var(--heading); border:1px solid var(--line);
+      border-radius:999px; cursor:pointer; padding:10px 14px; font-weight:800; box-shadow:0 6px 18px rgba(0,0,0,.04)}
+    .chip[aria-pressed="true"]{background:var(--heading); color:#fff; border-color:var(--heading)}
+    .tip{color:var(--muted); margin:8px 0 10px}
+
+    /* =========================
+       GRID + CARDS (4:3 default)
+       ========================= */
+    .grid{display:grid; gap:22px; padding-top:4px; grid-template-columns:repeat(12,1fr)}
     @media (max-width:1200px){.grid{grid-template-columns:repeat(9,1fr)}}
     @media (max-width:900px){.grid{grid-template-columns:repeat(6,1fr)}}
-    @media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr); gap:16px}}
+    @media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr); gap:14px}}
+    .card{grid-column:span 4; border-radius:18px; overflow:hidden; position:relative; background:#000; box-shadow:var(--shadow)}
 
-    .card{
-      grid-column:span 4; background:transparent; border-radius:var(--radius);
-      overflow:hidden; position:relative;
-    }
-    @media (max-width:1200px){.card{grid-column:span 3}}
-    @media (max-width:900px){.card{grid-column:span 3}}
-    @media (max-width:640px){.card{grid-column:span 2}}
-    .card[hidden]{display:none}
+    /* BA split (4:3) */
+    .ba{position:relative; aspect-ratio:4/3; border-radius:18px; overflow:hidden; background:#000}
+    .ba img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center}
+    .ba .img-before{clip-path:inset(0 50% 0 0)}
+    .ba .img-after{clip-path:inset(0 0 0 50%)}
 
-    /* ===== BA split tile ===== */
-    .ba{
-      position:relative; aspect-ratio:4/3; border-radius:16px; overflow:hidden;
-      box-shadow:var(--shadow); background:#000;
-    }
-    .ba img{
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:center; display:block; background:transparent;
-    }
-    .ba .img-before{clip-path:inset(0 50% 0 0); z-index:1;}
-    .ba .img-after {clip-path:inset(0 0 0 50%);  z-index:1;}
-    .ba::after{ display:none !important; } /* seamless, no divider */
+    /* BDA tight (4:3) */
+    .bda{display:grid; grid-template-columns:repeat(3,1fr); gap:0; aspect-ratio:4/3; border-radius:18px; overflow:hidden; background:#000}
+    .bda .ph{position:relative; height:100%}
+    .bda img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
 
-    /* ===== BDA (tight, no gaps) ===== */
-    .bda{
-      display:grid; grid-template-columns:repeat(3,1fr);
-      gap:0 !important; aspect-ratio:4/3;
-      border-radius:16px; overflow:hidden;
-      box-shadow:var(--shadow); background:#000;
-    }
-    .bda .ph{
-      position:relative; height:100%;
-      border-radius:0 !important; overflow:hidden;
-      background:#000; box-shadow:none !important;
-    }
-    .bda img{
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:center; display:block;
-    }
-    .bda .chip{
-      position:absolute; left:10px; bottom:10px; padding:6px 10px; border-radius:999px;
-      background:rgba(0,0,0,.55); color:#fff; font-weight:700; font-size:12.5px; letter-spacing:.2px; z-index:3;
-    }
+    .chip-tag,.label{position:absolute; left:10px; bottom:10px; padding:6px 10px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; font-weight:800; font-size:12.5px; letter-spacing:.2px}
+    .label.after{left:auto; right:10px}
 
-    /* ===== Labels ===== */
-    .label{
-      position:absolute; bottom:12px; padding:6px 10px; font-weight:700; color:#fff;
-      text-shadow:0 1px 3px rgba(0,0,0,.35); border-radius:999px;
-      background:linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.25));
-      font-size:12.5px; letter-spacing:.2px; z-index:3;
-    }
-    .label.before{left:12px;}
-    .label.after{right:12px;}
+    /* CTA bar */
+    .cta-wrap{margin-top:22px; padding:18px 0 8px; border-top:1px solid var(--line)}
+    .cta{display:flex; justify-content:center}
+    .btn{display:inline-flex; align-items:center; gap:10px; background:var(--heading); color:#fff; border:1px solid #c8b7a4; padding:12px 16px; border-radius:12px; font-weight:800}
 
-    /* ===== Helpers ===== */
-    .focus-left  { object-position:left  center !important; }
-    .focus-right { object-position:right center !important; }
-    .show-all      { object-fit:contain !important; }
-    .contain-left  { object-position:left  center !important; }
-    .contain-right { object-position:right center !important; }
+    footer small{color:#6b5e56}
 
-    /* ===== Mobile ===== */
-    @media (max-width: 480px){
-      .grid{
-        grid-template-columns: 1fr !important;
-        gap: 14px !important;
-      }
-      .card{ grid-column: span 1 !important; }
-
-      /* BA vertical split */
-      .ba{ aspect-ratio: 3 / 4; }
-      .ba .img-before{ clip-path: inset(0 0 50% 0) !important; }
-      .ba .img-after { clip-path: inset(50% 0 0 0) !important; }
-      .label.before{ top: 12px; left: 12px; bottom: auto; }
-      .label.after { bottom: 12px; right: 12px; top: auto; }
-
-      /* BDA stacked, no gaps */
-      .bda{ grid-template-columns: 1fr !important; gap:0 !important; aspect-ratio:auto !important; }
-      .bda .ph{ height: 240px; }
-    }
-
-    .page-edge{
-      position:fixed; inset:auto 0 0 0; height:26px;
-      background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.06));
-      pointer-events:none;
-    }
-    @media (prefers-reduced-motion: reduce){
-      .card{transition:none; transform:none !important}
+    @media (max-width:480px){
+      .card{grid-column:span 2}
+      .ba,.bda{aspect-ratio:3/4}
+      .ba .img-before{clip-path:inset(0 0 50% 0)}
+      .ba .img-after{clip-path:inset(50% 0 0 0)}
     }
   </style>
 </head>
-<body>
-  <div class="container">
+
+<body class="page-gallery">
+  <!-- ===== STICKY HEADER ===== -->
+  <header class="ps-header" role="navigation" aria-label="Primary">
+    <div class="container ps-inner">
+      <a class="ps-brand" href="index.html">
+        <img src="assets/brand/mj-icon.png" alt="MJ Sanding logo" />
+        <span>MJ Sanding</span>
+      </a>
+
+      <button class="ps-toggle" aria-label="Open menu" aria-controls="ps-navwrap" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div id="ps-navwrap" class="ps-navwrap">
+        <nav class="ps-nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="gallery.html" aria-current="page">Gallery</a>
+          <a href="about.html">About Us</a>
+          <a href="testimonials.html">Testimonials</a>
+          <a href="contact.html">Contact Us</a>
+        </nav>
+        <div class="ps-actions">
+          <a class="ps-cta" href="contact.html#quote">GET A QUOTE</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" role="banner" aria-label="Gallery header">
+    <div class="container">
+      <h1>Project Gallery</h1>
+      <p class="lead">Real floors we’ve sanded, restored and insulated across Greater London.</p>
+    </div>
+  </header>
+
+  <!-- ===== CONTENT ===== -->
+  <main class="container">
+    <header aria-label="Gallery intro" style="margin-top:6px">
+      <h2 class="title">Browse by</h2>
+      <p class="lead">Tip: click a tile for a larger view and finish details.</p>
+    </header>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
     <!-- Filters -->
-    <nav class="filters" aria-label="Gallery filters">
-      <button type="button" class="filter" aria-pressed="true" data-filter="all">All</button>
-      <button type="button" class="filter" data-filter="living">Living Rooms</button>
-      <button type="button" class="filter" data-filter="bedroom">Bedrooms</button>
-      <button type="button" class="filter" data-filter="stairs">Stairs</button>
-      <button type="button" class="filter" data-filter="commercial">Commercial</button>
+    <nav class="filters" aria-label="Filters">
+      <button class="chip" aria-pressed="true" data-group="cat" data-filter="all">All</button>
+      <button class="chip" data-group="tag" data-filter="before-after">Before/After</button>
+      <button class="chip" data-group="cat" data-filter="living">Living Room</button>
+      <button class="chip" data-group="cat" data-filter="bedroom">Bedroom</button>
+      <button class="chip" data-group="cat" data-filter="stairs">Stairs</button>
+      <button class="chip" data-group="cat" data-filter="commercial">Commercial</button>
+      <button class="chip" data-group="cat" data-filter="insulation">Insulation</button>
     </nav>
 
+    <p class="tip">Tip: click a tile for a larger view.</p>
+
     <!-- Grid -->
-    <section class="grid" id="gallery" aria-live="polite">
-      <!-- LIVING ROOM 1 — BDA -->
-      <article class="card" data-cat="living">
+    <section class="grid" id="gallery" aria-live="polite" role="list">
+      <!-- LIVING — BDA (4:3) -->
+      <article class="card" role="listitem" data-cat="living" data-tags="before-after" data-brand="Osmo" data-finish="Polyx-Oil" data-color="Honey 3071" data-sheen="Satin">
         <div class="bda">
           <figure class="ph">
-            <img src="assets/gallery/livingroom/livingroom1-before.jpeg" alt="Living room before" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">Before</figcaption>
+            <img src="assets/gallery/livingroom/livingroom1-before.jpeg" alt="Living room before" loading="lazy" width="1400" height="1050">
+            <figcaption class="chip-tag">Before</figcaption>
           </figure>
           <figure class="ph">
-            <img src="assets/gallery/livingroom/livingroom1-during.jpeg" alt="Living room during" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">During</figcaption>
+            <img src="assets/gallery/livingroom/livingroom1-during.jpeg" alt="Living room during" loading="lazy" width="1400" height="1050">
+            <figcaption class="chip-tag">During</figcaption>
           </figure>
           <figure class="ph">
-            <img src="assets/gallery/livingroom/livingroom1-after.jpeg" alt="Living room after" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">After</figcaption>
+            <img src="assets/gallery/livingroom/livingroom1-after.jpeg" alt="Living room after" loading="lazy" width="1400" height="1050">
+            <figcaption class="chip-tag">After</figcaption>
           </figure>
         </div>
       </article>
 
-      <!-- LIVING ROOM 2 — BA (no during) -->
-      <article class="card" data-cat="living">
+      <!-- LIVING — BA -->
+      <article class="card" role="listitem" data-cat="living" data-tags="before-after" data-brand="Bona" data-finish="Traffic HD" data-color="Natural" data-sheen="Matt">
         <div class="ba">
-          <img class="img-before" src="assets/gallery/livingroom/livingroom2-before.jpeg" alt="Living room 2 before" loading="lazy" decoding="async" width="1200" height="900">
-          <img class="img-after"  src="assets/gallery/livingroom/livingroom2-after.jpeg"  alt="Living room 2 after"  loading="lazy" decoding="async" width="1200" height="900">
-          <span class="label before">Before</span>
+          <img class="img-before" src="assets/gallery/livingroom/livingroom2-before.jpeg" alt="Living room 2 before" loading="lazy" width="1400" height="1050">
+          <img class="img-after"  src="assets/gallery/livingroom/livingroom2-after.jpeg"  alt="Living room 2 after"  loading="lazy" width="1400" height="1050">
+          <span class="label">Before</span>
           <span class="label after">After</span>
         </div>
       </article>
 
-      <!-- LIVING ROOM 3 — BDA -->
-      <article class="card" data-cat="living">
-        <div class="bda">
-          <figure class="ph">
-            <img src="assets/gallery/livingroom/livingroom3-before.jpeg" alt="Living room 3 before" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">Before</figcaption>
-          </figure>
-          <figure class="ph">
-            <img src="assets/gallery/livingroom/livingroom3-during.jpeg" alt="Living room 3 during" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">During</figcaption>
-          </figure>
-          <figure class="ph">
-            <img src="assets/gallery/livingroom/livingroom3-after.jpeg" alt="Living room 3 after" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">After</figcaption>
-          </figure>
-        </div>
-      </article>
-
-      <!-- BEDROOM 1 — BA -->
-      <article class="card" data-cat="bedroom">
+      <!-- BEDROOM — BA -->
+      <article class="card" role="listitem" data-cat="bedroom" data-tags="before-after" data-brand="Loba" data-finish="HS 2K ImpactOil" data-color="Smoked Oak" data-sheen="Natural">
         <div class="ba">
-          <img class="img-before" src="assets/gallery/bedroom/project1bed/bedroom1-before.jpeg" alt="Bedroom floor before" loading="lazy" decoding="async" width="1200" height="900">
-          <img class="img-after"  src="assets/gallery/bedroom/project1bed/bedroom1-after.jpeg"  alt="Bedroom floor after"  loading="lazy" decoding="async" width="1200" height="900">
-          <span class="label before">Before</span>
+          <img class="img-before" src="assets/gallery/bedroom/project1bed/bedroom1-before.jpeg" alt="Bedroom before" loading="lazy" width="1400" height="1050">
+          <img class="img-after"  src="assets/gallery/bedroom/project1bed/bedroom1-after.jpeg"  alt="Bedroom after"  loading="lazy" width="1400" height="1050">
+          <span class="label">Before</span>
           <span class="label after">After</span>
         </div>
       </article>
 
-      <!-- STAIRS 1 — BA -->
-      <article class="card" data-cat="stairs">
+      <!-- STAIRS — BA -->
+      <article class="card" role="listitem" data-cat="stairs" data-tags="before-after" data-brand="Fiddes" data-finish="Hard Wax Oil" data-color="Medium" data-sheen="Satin">
         <div class="ba">
-          <img class="img-before show-all contain-left"
-               src="assets/gallery/stairs/projectstairs1/stairs1-before.jpeg"
-               alt="Stairs before" loading="lazy" decoding="async" width="1200" height="900">
-          <img class="img-after show-all contain-right"
-               src="assets/gallery/stairs/projectstairs1/stairs1-after.jpeg"
-               alt="Stairs after"  loading="lazy" decoding="async" width="1200" height="900">
-          <span class="label before">Before</span>
+          <img class="img-before show-all contain-left" src="assets/gallery/stairs/projectstairs1/stairs1-before.jpeg" alt="Stairs before" loading="lazy" width="1400" height="1050">
+          <img class="img-after  show-all contain-right" src="assets/gallery/stairs/projectstairs1/stairs1-after.jpeg"  alt="Stairs after"  loading="lazy" width="1400" height="1050">
+          <span class="label">Before</span>
           <span class="label after">After</span>
         </div>
       </article>
 
-      <!-- COMMERCIAL project1com — BA -->
-      <article class="card" data-cat="commercial">
+      <!-- COMMERCIAL — BA -->
+      <article class="card" role="listitem" data-cat="commercial" data-tags="before-after" data-brand="Bona" data-finish="Mega One" data-color="Clear" data-sheen="Matt">
         <div class="ba">
-          <img class="img-before" src="assets/gallery/commercial/project1com/project1-before.jpeg" alt="Commercial floor before" loading="lazy" decoding="async" width="1200" height="900">
-          <img class="img-after"  src="assets/gallery/commercial/project1com/project1-after.jpeg"  alt="Commercial floor after"  loading="lazy" decoding="async" width="1200" height="900">
-          <span class="label before">Before</span>
+          <img class="img-before" src="assets/gallery/commercial/project1com/project1-before.jpeg" alt="Commercial before" loading="lazy" width="1400" height="1050">
+          <img class="img-after"  src="assets/gallery/commercial/project1com/project1-after.jpeg"  alt="Commercial after"  loading="lazy" width="1400" height="1050">
+          <span class="label">Before</span>
           <span class="label after">After</span>
         </div>
       </article>
 
-      <!-- COMMERCIAL 2 — BA -->
-      <article class="card" data-cat="commercial">
+      <!-- INSULATION — BA -->
+      <article class="card" role="listitem" data-cat="insulation" data-tags="before-after" data-brand="N/A" data-finish="Underfloor Insulation" data-color="—" data-sheen="">
         <div class="ba">
-          <img class="img-before" src="assets/gallery/commercial/commercial2-before.jpeg" alt="Commercial 2 before" loading="lazy" decoding="async" width="1200" height="900">
-          <img class="img-after"  src="assets/gallery/commercial/commercial2-after.jpeg"  alt="Commercial 2 after"  loading="lazy" decoding="async" width="1200" height="900">
-          <span class="label before">Before</span>
+          <img class="img-before" src="assets/gallery/insulation/insulation1-before.jpg" alt="Underfloor insulation before" loading="lazy" width="1400" height="1050">
+          <img class="img-after"  src="assets/gallery/insulation/insulation1-after.jpg"  alt="Underfloor insulation after"  loading="lazy" width="1400" height="1050">
+          <span class="label">Before</span>
           <span class="label after">After</span>
-        </div>
-      </article>
-
-      <!-- COMMERCIAL 3 — BDA -->
-      <article class="card" data-cat="commercial">
-        <div class="bda">
-          <figure class="ph">
-            <img src="assets/gallery/commercial/commercial3-before.jpeg" alt="Commercial 3 before" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">Before</figcaption>
-          </figure>
-          <figure class="ph">
-            <img src="assets/gallery/commercial/commercial3-during.jpeg" alt="Commercial 3 during" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">During</figcaption>
-          </figure>
-          <figure class="ph">
-            <img src="assets/gallery/commercial/commercial3-after.jpeg" alt="Commercial 3 after" loading="lazy" decoding="async" width="1200" height="900">
-            <figcaption class="chip">After</figcaption>
-          </figure>
         </div>
       </article>
     </section>
-  </div>
 
-  <div class="page-edge" aria-hidden="true"></div>
+    <!-- Meta + CTA -->
+    <div class="meta" style="padding-top:6px;color:var(--muted)">
+      <p><b style="color:var(--heading)">Need specifics?</b> Ask for project refs and we’ll share product, colour and cure times for similar floors.</p>
+    </div>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <section style="text-align:center">
+      <a class="btn" href="contact.html#quote">Request a Quote</a>
+    </section>
+  </main>
+
+  <footer class="container" style="border-top:1px solid var(--line);padding-block:20px;color:#6b5e56">
+    <small>© <span id="y"></span> MJ Sanding</small>
+  </footer>
 
   <script>
-    // Filters
-    const filters = document.querySelectorAll('.filter');
-    const cards   = document.querySelectorAll('.card');
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    function applyFilter(value){
-      cards.forEach(card => {
-        const cats = (card.getAttribute('data-cat')||'').split(/\s+/);
-        card.hidden = !((value === 'all') || cats.includes(value));
+    // Mobile menu toggle
+    const toggle = document.querySelector('.ps-toggle');
+    const wrap = document.getElementById('ps-navwrap');
+    if (toggle && wrap){
+      const setOpen = (open) => {
+        wrap.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        // Lock scroll when menu is open on small screens
+        document.body.style.overflow = open && matchMedia('(max-width:900px)').matches ? 'hidden' : '';
+      };
+      toggle.addEventListener('click', () => setOpen(!wrap.classList.contains('open')));
+      // Close after clicking a link
+      wrap.addEventListener('click', (e)=>{ if(e.target.tagName === 'A') setOpen(false); });
+    }
+
+    // Active link highlight (works even if paths differ)
+    (function(){
+      const path = location.pathname.toLowerCase().replace(/\/$/, '');
+      document.querySelectorAll('.ps-nav a').forEach(a => {
+        const href = (a.getAttribute('href')||'').toLowerCase().replace(/\/$/, '');
+        if(!href) return;
+        if(path.endsWith(href) || (href !== 'index.html' && path.includes(href))){
+          a.classList.add('active');
+          if(!a.hasAttribute('aria-current')) a.setAttribute('aria-current','page');
+        }
+      });
+    })();
+
+    // ===== Filters =====
+    const chips = document.querySelectorAll('.chip');
+    const cards = document.querySelectorAll('.card');
+    let activeCat = 'all';
+    let activeTag = 'all';
+
+    function setPressed(btn){
+      const group = btn.getAttribute('data-group');
+      const peers = document.querySelectorAll('.chip[data-group="'+group+'"]');
+      peers.forEach(b => b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+    }
+    function applyFilters(){
+      cards.forEach(card=>{
+        const cats = (card.getAttribute('data-cat')||'').split(/\s+/).filter(Boolean);
+        const tags = (card.getAttribute('data-tags')||'').split(/\s+/).filter(Boolean);
+        const catMatch = (activeCat==='all') || cats.includes(activeCat);
+        const tagMatch = (activeTag==='all') || tags.includes(activeTag);
+        card.style.display = (catMatch && tagMatch) ? '' : 'none';
       });
     }
+    chips.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(btn.dataset.group==='cat'){ activeCat = btn.dataset.filter; }
+        if(btn.dataset.group==='tag'){ activeTag = btn.dataset.filter; }
+        setPressed(btn);
+        applyFilters();
+      });
+    });
+    applyFilters();
 
-    filters.forEach(btn => btn.addEventListener('click', () => {
-      filters.forEach(b => b.setAttribute('aria-pressed','false'));
-      btn.setAttribute('aria-pressed','true');
-      applyFilter(btn.dataset.filter);
-    }));
-
-    // Reveal animation
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!prefersReduced){
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if(e.isIntersecting){
-            e.target.animate(
-              [{opacity:0, transform:'translateY(8px)'},{opacity:1, transform:'translateY(0)'}],
-              {duration:350, easing:'ease-out'}
-            );
-            io.unobserve(e.target);
-          }
-        });
-      }, {threshold:.25});
-      document.querySelectorAll('.card').forEach(el => io.observe(el));
+    // ===== Click-to-enlarge with details =====
+    function pickPreviewImage(card){
+      const after = card.querySelector('.img-after');
+      if(after && after.getAttribute('src')) return after.getAttribute('src');
+      const first = card.querySelector('img');
+      return first ? first.getAttribute('src') : '';
     }
+    function buildDetails(card){
+      const brand  = card.getAttribute('data-brand')  || '';
+      const finish = card.getAttribute('data-finish') || '';
+      const color  = card.getAttribute('data-color')  || '';
+      const sheen  = card.getAttribute('data-sheen')  || '';
+      const notes  = card.getAttribute('data-notes')  || '';
+      if(!(brand||finish||color||sheen||notes)) return '';
+      return `
+        <div style="position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;padding:10px 12px;border-radius:12px;font-size:14px;font-weight:800;line-height:1.35;backdrop-filter:saturate(1.1) blur(2px);max-width:min(90vw,520px)">
+          ${brand?`<div><span style="opacity:.8">Brand:</span> ${brand}</div>`:''}
+          ${finish?`<div><span style="opacity:.8">Finish:</span> ${finish}</div>`:''}
+          ${color?`<div><span style="opacity:.8">Colour:</span> ${color}</div>`:''}
+          ${sheen?`<div><span style="opacity:.8">Sheen:</span> ${sheen}</div>`:''}
+          ${notes?`<div style="font-weight:700;opacity:.95">${notes}</div>`:''}
+        </div>`;
+    }
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const src = pickPreviewImage(card);
+        if(!src) return;
+        const dlg = document.createElement('dialog');
+        dlg.style.padding='0'; dlg.style.border='0'; dlg.style.background='transparent';
+        dlg.style.maxWidth='95vw'; dlg.style.maxHeight='95vh';
+        dlg.innerHTML = `
+          <div style="position:relative">
+            <img src="${src}" alt="" style="width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.28)">
+            ${buildDetails(card)}
+            <button aria-label="Close" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;border:0;border-radius:999px;width:36px;height:36px;cursor:pointer;font-weight:900">&times;</button>
+          </div>`;
+        document.body.appendChild(dlg);
+        const close=()=>dlg.close();
+        dlg.querySelector('button')?.addEventListener('click',close);
+        dlg.addEventListener('click',(e)=>{ if(e.target===dlg) close(); });
+        dlg.addEventListener('close',()=>dlg.remove());
+        window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') close(); },{once:true});
+        dlg.showModal();
+      });
+    });
   </script>
 </body>
 </html>
