@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gallery — MJ Sanding</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Gallery-specific styles -->
+  <link rel="stylesheet" href="css/gallery.css">
+</head>
+
+<body class="page-gallery">
+
+<!-- ================= HEADER ================= -->
+<header class="site-header" role="navigation" aria-label="Primary">
+  <div class="container header-inner">
+
+    <a href="index.html" class="brand">
+      <img src="assets/Svg logo.svg" alt="MJ Sanding logo" class="brand-logo">
+      <span class="brand-text">MJ Sanding</span>
+    </a>
+
+    <button class="nav-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="main-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="site-nav" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="gallery.html" aria-current="page">Gallery</a>
+      <a href="about.html">About Us</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact Us</a>
+      <a class="btn btn-primary" href="contact.html#quote">Get a Quote</a>
+    </nav>
+
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-label="Gallery header">
+  <div class="container">
+    <h1>Project Gallery</h1>
+    <p class="lead">
+      Real floors we’ve sanded, restored, and finished across united kingdom
+    </p>
+  </div>
+</section>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="container">
+
+  <!-- Filters -->
+  <nav class="filters" aria-label="Gallery filters">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="living">Living Rooms</button>
+    <button class="chip" data-filter="bedroom">Bedrooms</button>
+    <button class="chip" data-filter="stairs">Stairs</button>
+    <button class="chip" data-filter="commercial">Commercial</button>
+    <button class="chip" data-filter="insulation">Insulation</button>
+  </nav>
+
+  <!-- Gallery Grid -->
+  <section class="grid" id="gallery">
+
+    <article class="card" data-cat="living">
+      <img src="assets/gallery/livingroom/floors2.jpeg"
+           alt="Living room floor sanding and restoration">
+    </article>
+
+    <article class="card" data-cat="bedroom">
+      <img src="assets/gallery/livingroom/floors3.png"
+           alt="Bedroom floor sanding and finishing">
+    </article>
+
+    <article class="card" data-cat="stairs">
+      <img src="assets/gallery/livingroom/holloway1.jpeg"
+           alt="Staircase sanding and restoration">
+    </article>
+
+    <article class="card" data-cat="commercial">
+      <img src="assets/gallery/livingroom/livingroom1.png"
+           alt="Commercial wood floor restoration">
+    </article>
+
+    <article class="card" data-cat="commercial">
+      <img src="assets/gallery/livingroom/livingroom2.png"
+           alt="Commercial wood floor restoration">
+    </article>
+
+    <article class="card" data-cat="commercial">
+      <img src="assets/gallery/livingroom/livingroom3.png"
+           alt="Commercial wood floor restoration">
+    </article>
+
+    <article class="card" data-cat="commercial">
+      <img src="assets/gallery/livingroom/livingroom4.png"
+           alt="Commercial wood floor restoration">
+    </article>
+
+    <article class="card" data-cat="commercial">
+      <img src="assets/gallery/livingroom/holloway1.jpeg"
+           alt="Commercial wood floor restoration">
+    </article>
+
+    <article class="card" data-cat="stairs">
+      <img src="assets/gallery/stairs/stairs1.png"
+           alt="Staircase sanding and finishing">
+    </article>
+<article class="card" data-cat="stairs">
+      <img src="assets/gallery/bedroom1.png"
+           alt="Staircase sanding and finishing">
+    </article>
+<article class="card" data-cat="stairs">
+      <img src="assets/gallery/commercial2.png"
+           alt="Staircase sanding and finishing">
+    </article>
+    
+<article class="card" data-cat="stairs">
+      <img src="assets/gallery/commerical1.png"
+           alt="Staircase sanding and finishing">
+    </article>
+  </section>
+
+  <!-- CTA -->
+  <section class="gallery-cta">
+    <h2>Ready to transform your floors?</h2>
+    <p>
+      Get a fast, no-obligation quote for professional floor sanding and finishing.
+    </p>
+    <a class="btn btn-primary" href="contact.html#quote">
+      Request a Free Quote
+    </a>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <p>© <span id="y"></span> MJ Sanding — All rights reserved.</p>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+  // Footer year
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Gallery filtering
+  const filterButtons = document.querySelectorAll('.chip');
+  const cards = document.querySelectorAll('.card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      cards.forEach(card => {
+        card.style.display =
+          filter === 'all' || card.dataset.cat === filter
+            ? 'block'
+            : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+/* =========================================
+   PAGE-SCOPED TOKENS (SERVICES ONLY)
+========================================= */
+.page-services{
+  --bg:#fff9f1;
+  --text:#2d1a12;
+  --heading:#3a170c;
+  --muted:#6b5e56;
+  --line:#eadfce;
+  --radius:16px;
+  --hero-img:url('../assets/imghero.png');
+}
+
+body.page-services{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* =========================================
+   HERO (MORE ENERGY)
+========================================= */
+.page-services .hero{
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.25)),
+    var(--hero-img) center/cover no-repeat;
+  color:#fff;
+  text-align:center;
+  padding:84px 18px 68px;
+}
+
+.page-services .hero h1{
+  color:#fff;
+  margin-bottom:12px;
+  font-size:clamp(2rem, 5vw, 2.6rem);
+  font-weight:800;
+  letter-spacing:-0.015em;
+}
+
+.page-services .hero .lead{
+  max-width:520px;
+  margin:0 auto;
+  opacity:.95;
+  font-size:1.05rem;
+}
+
+.page-services .hero-trust{
+  margin-top:10px;
+  font-size:14.5px;
+  opacity:.9;
+}
+
+/* =========================================
+   SERVICES SECTION
+========================================= */
+.page-services .services-grid{
+  display:block;
+  max-width:1120px;
+  margin-inline:auto;
+  margin-bottom:24px;
+}
+
+.page-services .service-card{
+  display:grid;
+  grid-template-columns:1.15fr 0.85fr;
+  gap:28px; /* ⬅ text closer to image */
+  align-items:flex-start;
+  padding:28px 0;
+  text-align:left;
+}
+
+.page-services .service-card:nth-child(even){
+  direction:rtl;
+}
+.page-services .service-card:nth-child(even) > *{
+  direction:ltr;
+}
+
+@media (max-width:900px){
+  .page-services .service-card{
+    grid-template-columns:1fr;
+    gap:16px; /* ⬅ tighter on mobile */
+  }
+  .page-services .service-card:nth-child(even){
+    direction:ltr;
+  }
+}
+
+/* =========================================
+   SERVICE IMAGE
+========================================= */
+.page-services .photo{
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  min-height:300px;
+}
+
+.page-services .photo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+@media (min-width:1200px){
+  .page-services .photo{
+    min-height:360px;
+  }
+}
+
+/* =========================================
+   SERVICE TEXT
+========================================= */
+.page-services .text{
+  padding-left:0;
+}
+
+@media (min-width:901px){
+  .page-services .text{
+    margin-left:-8px; /* ⬅ micro nudge toward image */
+  }
+}
+
+/* service titles in black (not brown) */
+.page-services .text h2,
+.page-services .text h3,
+.page-services .service-card h2,
+.page-services .service-card h3{
+  color:#000;
+}
+
+.page-services .text p{
+  max-width:520px;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+.page-services .ticks{
+  list-style:none;
+  margin:0 0 20px;
+  padding:0;
+  font-size:15px;
+  line-height:1.6;
+}
+
+.page-services .ticks li{
+  margin-bottom:6px;
+}
+
+/* Button base used inside services (kept) */
+.page-services .btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 18px;
+  border-radius:12px;
+  background:var(--heading);
+  color:#fff;
+  font-weight:700;
+  border:1px solid #c8b7a4;
+  text-decoration:none;
+}
+
+.page-services .service-card .btn{
+  margin-top:4px;
+  font-size:14px;
+}
+
+/* =========================================
+   PRODUCTS
+========================================= */
+.page-services .products{
+  padding:20px 0 16px;
+  background:rgba(0,0,0,.02);
+}
+
+/* =========================================
+   WHY CHOOSE US (TIGHTER SPACING)
+========================================= */
+.page-services .why{
+  padding:40px 18px 28px;
+}
+
+.page-services .why h2{
+  margin-bottom:6px;
+}
+
+.page-services .why .lead{
+  color:var(--muted);
+  margin:0 0 16px;
+  max-width:720px;
+}
+
+/* ⬇ tighter gaps between the 5-ish items */
+.page-services .why-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:10px 16px; /* ⬅ closer to each other (was larger) */
+}
+
+@media (max-width:720px){
+  .page-services .why-grid{
+    grid-template-columns:1fr;
+    gap:10px; /* ⬅ tighter vertical stack on mobile */
+  }
+}
+
+.page-services .why-card{
+  display:grid;
+  grid-template-columns:26px 1fr; /* ⬅ small icon column */
+  gap:8px;                        /* ⬅ bring icon + text closer */
+  align-items:flex-start;
+}
+
+.page-services .why-ico{
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--heading);
+}
+
+.page-services .why-ico svg{
+  width:13px;
+  height:13px;
+}
+
+.page-services .why-title{
+  font-weight:700;
+  margin:0 0 3px;
+  font-size:16px;
+}
+
+.page-services .why-text{
+  margin:0;
+  color:var(--muted);
+  font-size:14.8px;
+  line-height:1.5;
+  max-width:520px;
+}
+
+/* =========================================
+   FAQ (UNCHANGED)
+========================================= */
+.page-services .faq{
+  padding:28px 20px 32px;
+}
+
+.page-services details{
+  max-width:720px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  padding:10px 0;
+}
+
+.page-services summary{
+  cursor:pointer;
+  font-weight:700;
+  color:var(--heading);
+  list-style:none;
+}
+
+.page-services summary::-webkit-details-marker{
+  display:none;
+}
+
+.page-services details p{
+  margin:.4rem 0 .2rem;
+  color:var(--muted);
+  font-size:15px;
+}
+
+/* =========================================
+   CTA (PRIMARY) — FIXED / RESTORED
+   (Does not depend on global .btn variants)
+========================================= */
+.page-services .cta{
+  background:#2a140b;
+  color:#fff;
+  border-radius:18px;
+  padding:28px;
+}
+
+.page-services .cta h2,
+.page-services .cta p{
+  color:#fff;
+}
+
+.page-services .cta .btn{
+  background:#fff;
+  color:var(--heading);
+  border-color:#fff;
+}
+
+/* =========================================
+   FOOTER — RESTORED (WAS MISSING)
+========================================= */
+.page-services .footer-band{
+  margin-top:48px;
+  background:linear-gradient(180deg, #29160e, #1f120c);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-services .footer-band .fb-grid{
+  max-width:1120px;
+  margin-inline:auto;
+  padding:36px 18px 28px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:28px;
+  text-align:center;
+}
+
+@media (max-width:900px){
+  .page-services .footer-band .fb-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.page-services .footer-band h3{
+  color:#fff;
+  font-weight:700;
+  margin:0 0 10px;
+}
+
+.page-services .footer-band p,
+.page-services .footer-band a{
+  color:#ffffff;
+  font-size:15px;
+  text-decoration:none;
+}
+
+.page-services .footer-band a:hover{
+  text-decoration:underline;
+}
+
+.page-services .footer-band .muted{
+  color:rgba(255,255,255,.75);
+}
+
+.page-services .brand-mark{
+  display:grid;
+  justify-items:center;
+  gap:8px;
+}
+
+.page-services .brand-mark img{
+  height:54px;
+  filter:brightness(0) invert(1);
+}
+
+.page-services .brand-mark .tagline{
+  font-weight:600;
+  color:rgba(255,255,255,.85);
+}
+
+/* =========================================
+   SUB FOOTER — RESTORED
+========================================= */
+.page-services .site-footer{
+  background:#120a06;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.page-services .site-footer p{
+  color:rgba(255,255,255,.86);
+  text-align:center;
+  padding:14px 0;
+  margin:0;
+  font-size:14px;
+}
+
+/* =========================================
+   MOBILE FULL-WIDTH IMAGES
+==========================a=============== */
+@media (max-width:900px){
+  .page-services .service-card{
+    padding:24px 0;
+  }
+
+  .page-services .photo{
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+    border-radius:0;
+    min-height:380px;
+  }
+
+  .page-services .text{
+    padding:0 18px;
+    margin-left:0;
+  }
+}
+/* =================================================
+   SERVICES PAGE — SUBTLE POLISH (NO CARDS)
+================================================= */
+
+.page-services section.why .why-card{
+  padding:18px 0;
+}
+
+.page-services section.why .why-card + .why-card{
+  border-top:1px solid rgba(0,0,0,.04);
+}
+
+/* Optional: gentle hover on desktop */
+@media (hover:hover){
+  .page-services section.why .why-card:hover{
+    background:rgba(255,255,255,.35);
+  }
+}

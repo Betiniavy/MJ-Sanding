@@ -1,0 +1,267 @@
+/* =========================================
+   PAGE-SCOPED TOKENS (TESTIMONIALS ONLY)
+========================================= */
+.page-testimonials{
+  --bg:#fff9f1;
+  --text:#2d1a12;
+  --heading:#3a170c;
+  --muted:#6b5e56;
+  --line:#eadfce;
+  --hero-img:url('../assets/imghero.png');
+}
+
+body.page-testimonials{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* =========================================
+   HERO
+========================================= */
+.page-testimonials .hero{
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.25)),
+    var(--hero-img) center/cover no-repeat;
+  color:#fff;
+  text-align:center;
+  padding:84px 18px 68px;
+}
+
+.page-testimonials .hero h1{
+  color:#fff;
+  font-weight:800;
+  font-size:clamp(2rem,5vw,2.6rem);
+  margin-bottom:12px;
+}
+
+.page-testimonials .hero .lead{
+  max-width:620px;
+  margin:0 auto;
+  opacity:.95;
+  font-size:1.05rem;
+}
+
+/* =========================================
+   TRUST STRIP
+========================================= */
+.trust-strip{
+  padding-top:28px;
+  padding-bottom:8px;
+}
+
+.trust-items{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px 28px;
+  justify-content:center;
+  font-weight:600;
+  color:var(--heading);
+}
+
+/* =========================================
+   TESTIMONIAL GRID
+========================================= */
+.testimonials{
+  padding-top:28px;
+}
+
+.testimonials-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+.testimonial-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px;
+}
+
+.stars{
+  color:#D4A017;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.quote{
+  font-size:15.5px;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+
+.author{
+  font-weight:700;
+  margin-bottom:2px;
+}
+
+.location{
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* =========================================
+   CTA
+========================================= */
+.testimonial-cta{
+  padding-top:32px;
+}
+
+.cta-box{
+  background:#2a140b;
+  color:#fff;
+  border-radius:18px;
+  padding:28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.cta-box h2,
+.cta-box p{
+  color:#fff;
+  margin:0;
+}
+
+.cta-box p{
+  opacity:.95;
+  margin-top:4px;
+}
+/* =========================================
+   FOOTER — TESTIMONIALS (MATCHES SERVICES)
+========================================= */
+
+.page-testimonials .footer-band{
+  margin-top:48px;
+  background:linear-gradient(180deg, #29160e, #1f120c);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-testimonials .footer-band .fb-grid{
+  max-width:1120px;
+  margin-inline:auto;
+  padding:36px 18px 28px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:28px;
+  text-align:center;
+}
+
+@media (max-width:900px){
+  .page-testimonials .footer-band .fb-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.page-testimonials .footer-band h3{
+  color:#fff;
+  font-weight:700;
+  margin:0 0 10px;
+}
+
+.page-testimonials .footer-band p,
+.page-testimonials .footer-band a{
+  color:#ffffff;
+  font-size:15px;
+  text-decoration:none;
+}
+
+.page-testimonials .footer-band a:hover{
+  text-decoration:underline;
+}
+
+.page-testimonials .footer-band .muted{
+  color:rgba(255,255,255,.75);
+}
+
+.page-testimonials .brand-mark{
+  display:grid;
+  justify-items:center;
+  gap:8px;
+}
+
+.page-testimonials .brand-mark img{
+  height:54px;
+  filter:brightness(0) invert(1);
+}
+
+.page-testimonials .brand-mark .tagline{
+  font-weight:600;
+  color:rgba(255,255,255,.85);
+}
+
+.page-testimonials .site-footer{
+  background:#120a06;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.page-testimonials .site-footer p{
+  color:rgba(255,255,255,.86);
+  text-align:center;
+  padding:14px 0;
+  margin:0;
+  font-size:14px;
+}
+/* =========================================
+   GOOGLE REVIEWS (ADD-ON, NON-DESTRUCTIVE)
+========================================= */
+
+.page-testimonials .google-reviews{
+  padding-top:18px;
+}
+
+.page-testimonials .google-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+}
+
+@media (max-width:700px){
+  .page-testimonials .google-box{
+  border:1px dashed var(--line);
+  background:transparent;
+}
+
+  }
+
+.page-testimonials .google-stars{
+  color:#D4A017;
+  font-size:18px;
+  margin-bottom:4px;
+}
+
+.page-testimonials .google-score{
+  margin:0;
+  font-size:15.5px;
+  font-weight:600;
+}
+
+.page-testimonials .google-note{
+  margin:0;
+  font-size:13.5px;
+  color:var(--muted);
+}
+
+.page-testimonials .google-btn{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:700;
+  border:1px solid var(--line);
+  color:var(--heading);
+  text-decoration:none;
+}
+
+.page-testimonials .google-btn:hover{
+  text-decoration:underline;
+}

@@ -1,0 +1,436 @@
+/* ============================== */
+/* 1) BRAND TOKENS (GLOBAL)       */
+/* ============================== */
+:root{
+  --brand:#3a170c;
+  --dark:#4B2E1E;
+  --dark-hover:#6B3F2B;
+  --wood-tint:#A47449;
+
+  --bg:#FAF7F3;
+  --text:#2b2b2b;
+  --white:#FFFFFF;
+  --muted:#6B6B6B;
+  --heading:#111;
+
+  --border:#E9E3DB;
+  --line:#E9E3DB;
+  --panel:#FBF9F6;
+
+  --gold:#D4A017;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+  --maxw:1120px;
+}
+
+/* ============================== */
+/* 2) BASE / TYPOGRAPHY           */
+/* ============================== */
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+
+h1,h2,h3{
+  font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--heading);
+  margin:0 0 .45em;
+}
+
+h1{font-size:clamp(26px,4vw,42px)}
+h2{font-size:clamp(22px,2.6vw,30px)}
+h3{font-size:clamp(17px,1.9vw,19px)}
+
+p{margin:0 0 .85em}
+
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ============================== */
+/* 3) LAYOUT NORMALIZATION        */
+/* ============================== */
+.container{
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding:20px 24px;
+}
+
+/* Equal spacing for ALL sections */
+section{
+  padding-block:32px;
+}
+
+/* Hero allowed to breathe more */
+#home.hero{
+  padding-block:56px;
+}
+
+/* ============================== */
+/* 4) HEADER / NAV                */
+/* ============================== */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(250,247,243,.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-inner{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.brand-logo{
+  height:64px;
+  width:auto;
+}
+
+.brand-text{
+  font:700 18px/1 "Poppins";
+  color:var(--heading);
+}
+
+.site-nav{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.site-nav a{
+  font-weight:600;
+  font-size:14.5px;
+}
+
+/* Mobile nav */
+.nav-toggle{
+  display:none;
+  background:none;
+  border:0;
+  padding:8px;
+  cursor:pointer;
+}
+
+.nav-toggle span{
+  display:block;
+  width:22px;
+  height:2px;
+  background:var(--heading);
+  margin:5px 0;
+}
+
+@media (max-width:900px){
+  .nav-toggle{display:block}
+  .site-nav{
+    position:absolute;
+    left:0;
+    right:0;
+    top:64px;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    display:none;
+    flex-direction:column;
+    padding:14px 20px;
+    gap:14px;
+  }
+  .site-nav.open{display:flex}
+}
+
+/* ============================== */
+/* 5) CARD DENSITY REFINEMENT     */
+/* ============================== */
+.service-card,
+.why-card,
+.card{
+  padding:20px;
+}
+
+@media (max-width:640px){
+  .service-card,
+  .why-card,
+  .card{
+    padding:18px;
+  }
+}
+
+/* ============================== */
+/* 6) SERVICES                    */
+/* ============================== */
+.services-grid{
+  display:grid;
+  gap:22px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+}
+
+/* ============================== */
+/* 7) GALLERY DENSITY TUNING      */
+/* ============================== */
+#gallery{
+  padding-block:30px;
+}
+
+.home-carousel{
+  border-radius:14px;
+}
+
+.hc-track{
+  display:flex;
+  gap:12px;
+}
+
+@media (max-width:900px){
+  .hc-track{gap:10px}
+}
+
+/* ============================== */
+/* 8) OUR STORY (ABOUT)           */
+/* ============================== */
+#about-body{
+  padding-top:28px;
+  padding-bottom:16px;
+}
+
+#about-body .about-grid{
+  gap:26px;
+}
+
+#about-body .about-content p{
+  margin-bottom:8px;
+}
+
+/* ============================== */
+/* 9) WHY CHOOSE US               */
+/* ============================== */
+#why-us{
+  margin-top:0;
+  padding-top:18px;
+  border-top:1px solid rgba(0,0,0,.035);
+}
+
+#why-us .why-title{
+  margin-bottom:14px;
+}
+
+#why-us .why-row{
+  margin-top:0;
+}
+
+/* ============================== */
+/* 10) PROCESS                    */
+/* ============================== */
+#process{
+  padding-block:34px;
+}
+
+.home #process .proc-steps::before{
+  display:none;
+}
+
+/* ============================== */
+/* 12) CTA / BUTTONS              */
+/* ============================== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-radius:10px;
+  font:700 14px/1 "Poppins";
+}
+
+.btn-primary{
+  background:var(--dark);
+  color:#fff;
+  padding:11px 16px;
+}
+
+.btn-primary:hover{
+  background:var(--dark-hover);
+}
+
+.details,
+.g-link{
+  font-weight:600;
+  opacity:.85;
+}
+
+.details:hover,
+.g-link:hover{
+  opacity:1;
+}
+
+.service-card .details{
+  font-size:14px;
+}
+
+/* ============================== */
+/* 13) FOOTER                     */
+/* ============================== */
+.site-footer{
+  border-top:1px solid var(--border);
+  background:#000;
+}
+
+.site-footer p{
+  margin:0;
+  padding:14px 0;
+  color:rgba(255,255,255,.86);
+  text-align:center;
+}
+
+/* =================================================
+   WHY CHOOSE US — SHARED BASE (HOME + SERVICES)
+================================================= */
+
+#why-us .why-card,
+section.why .why-card{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:20px;
+}
+
+#why-us .why-ico,
+section.why .why-ico{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  border:1px solid var(--border);
+  color:var(--heading);
+  flex-shrink:0;
+}
+
+#why-us .why-ico svg,
+section.why .why-ico svg{
+  width:20px;
+  height:20px;
+}
+
+#why-us .why-card h3,
+section.why .why-card h3{
+  font-size:clamp(17px, 1.9vw, 19px);
+  font-weight:700;
+  margin:0 0 4px;
+}
+
+#why-us .why-card p,
+section.why .why-card p{
+  font-size:15px;
+  line-height:1.55;
+  margin:0;
+  color:var(--muted);
+}
+
+/* spacing between Why Choose Us items */
+#why-us .why-row,
+section.why .why-grid{
+  gap:22px;
+}
+
+@media (max-width:720px){
+  #why-us .why-row,
+  section.why .why-grid{
+    gap:18px;
+  }
+}
+/* =========================================
+   GLOBAL FOOTER — HOME FIX
+========================================= */
+
+.page-home .footer-band{
+  margin-top:48px;
+  background:linear-gradient(180deg, #29160e, #1f120c);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-home .footer-band .fb-grid{
+  max-width:1120px;
+  margin-inline:auto;
+  padding:36px 18px 28px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:28px;
+  text-align:center;
+}
+
+@media (max-width:900px){
+  .page-home .footer-band .fb-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.page-home .site-footer{
+  background:#120a06;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.page-home .site-footer p{
+  color:rgba(255,255,255,.86);
+  text-align:center;
+  padding:14px 0;
+  margin:0;
+  font-size:14px;
+}
+/* =========================================
+   HOME FOOTER FIX (NO DESIGN CHANGES)
+========================================= */
+
+.page-home #footer-info{
+  padding-block:0;            /* cancel section padding */
+}
+
+.page-home .footer-band{
+  margin-top:48px;
+  background:linear-gradient(180deg, #29160e, #1f120c);
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-home .footer-band .fb-grid{
+  max-width:1120px;
+  margin-inline:auto;
+  padding:36px 18px 28px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:28px;
+  text-align:center;
+}
+
+@media (max-width:900px){
+  .page-home .footer-band .fb-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.page-home .site-footer{
+  background:#120a06;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+.page-home .site-footer p{
+  color:rgba(255,255,255,.86);
+  text-align:center;
+  padding:14px 0;
+  margin:0;
+  font-size:14px;
+}
+
