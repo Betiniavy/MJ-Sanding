@@ -149,7 +149,7 @@ body.page-services{
   margin-bottom:6px;
 }
 
-/* Button base used inside services (kept) */
+/* Button base used inside services (kept EXACTLY as you had it) */
 .page-services .btn{
   display:inline-flex;
   align-items:center;
@@ -174,74 +174,6 @@ body.page-services{
 .page-services .products{
   padding:20px 0 16px;
   background:rgba(0,0,0,.02);
-}
-
-/* =========================================
-   WHY CHOOSE US (TIGHTER SPACING)
-========================================= */
-.page-services .why{
-  padding:40px 18px 28px;
-}
-
-.page-services .why h2{
-  margin-bottom:6px;
-}
-
-.page-services .why .lead{
-  color:var(--muted);
-  margin:0 0 16px;
-  max-width:720px;
-}
-
-/* ⬇ tighter gaps between the 5-ish items */
-.page-services .why-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:10px 16px; /* ⬅ closer to each other (was larger) */
-}
-
-@media (max-width:720px){
-  .page-services .why-grid{
-    grid-template-columns:1fr;
-    gap:10px; /* ⬅ tighter vertical stack on mobile */
-  }
-}
-
-.page-services .why-card{
-  display:grid;
-  grid-template-columns:26px 1fr; /* ⬅ small icon column */
-  gap:8px;                        /* ⬅ bring icon + text closer */
-  align-items:flex-start;
-}
-
-.page-services .why-ico{
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:#fff;
-  border:1px solid var(--line);
-  color:var(--heading);
-}
-
-.page-services .why-ico svg{
-  width:13px;
-  height:13px;
-}
-
-.page-services .why-title{
-  font-weight:700;
-  margin:0 0 3px;
-  font-size:16px;
-}
-
-.page-services .why-text{
-  margin:0;
-  color:var(--muted);
-  font-size:14.8px;
-  line-height:1.5;
-  max-width:520px;
 }
 
 /* =========================================
@@ -275,8 +207,7 @@ body.page-services{
 }
 
 /* =========================================
-   CTA (PRIMARY) — FIXED / RESTORED
-   (Does not depend on global .btn variants)
+   CTA (PRIMARY) — KEEP EXACTLY AS BEFORE
 ========================================= */
 .page-services .cta{
   background:#2a140b;
@@ -297,119 +228,53 @@ body.page-services{
 }
 
 /* =========================================
-   FOOTER — RESTORED (WAS MISSING)
+   MOBILE — SERVICE IMAGES AS FULL-WIDTH SECTIONS
+   (MATCH HERO BEHAVIOUR)
 ========================================= */
-.page-services .footer-band{
-  margin-top:48px;
-  background:linear-gradient(180deg, #29160e, #1f120c);
-  border-top:1px solid rgba(255,255,255,.08);
-}
-
-.page-services .footer-band .fb-grid{
-  max-width:1120px;
-  margin-inline:auto;
-  padding:36px 18px 28px;
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:28px;
-  text-align:center;
-}
-
 @media (max-width:900px){
-  .page-services .footer-band .fb-grid{
-    grid-template-columns:1fr;
-  }
-}
 
-.page-services .footer-band h3{
-  color:#fff;
-  font-weight:700;
-  margin:0 0 10px;
-}
-
-.page-services .footer-band p,
-.page-services .footer-band a{
-  color:#ffffff;
-  font-size:15px;
-  text-decoration:none;
-}
-
-.page-services .footer-band a:hover{
-  text-decoration:underline;
-}
-
-.page-services .footer-band .muted{
-  color:rgba(255,255,255,.75);
-}
-
-.page-services .brand-mark{
-  display:grid;
-  justify-items:center;
-  gap:8px;
-}
-
-.page-services .brand-mark img{
-  height:54px;
-  filter:brightness(0) invert(1);
-}
-
-.page-services .brand-mark .tagline{
-  font-weight:600;
-  color:rgba(255,255,255,.85);
-}
-
-/* =========================================
-   SUB FOOTER — RESTORED
-========================================= */
-.page-services .site-footer{
-  background:#120a06;
-  border-top:1px solid rgba(255,255,255,.06);
-}
-
-.page-services .site-footer p{
-  color:rgba(255,255,255,.86);
-  text-align:center;
-  padding:14px 0;
-  margin:0;
-  font-size:14px;
-}
-
-/* =========================================
-   MOBILE FULL-WIDTH IMAGES
-==========================a=============== */
-@media (max-width:900px){
+  /* Break the card layout */
   .page-services .service-card{
-    padding:24px 0;
+    display:block;
+    padding:0;
   }
 
+  /* Make image behave like hero */
   .page-services .photo{
+    position:relative;
     width:100vw;
     margin-left:calc(50% - 50vw);
     margin-right:calc(50% - 50vw);
     border-radius:0;
-    min-height:380px;
+    min-height:52vh; /* same visual weight as hero */
   }
 
+  .page-services .photo img{
+    object-fit:cover;
+  }
+
+  /* Text becomes a clean section below */
   .page-services .text{
-    padding:0 18px;
-    margin-left:0;
+    padding:22px 18px 26px;
+    max-width:720px;
+    margin:0 auto;
   }
 }
-/* =================================================
-   SERVICES PAGE — SUBTLE POLISH (NO CARDS)
-================================================= */
-
-.page-services section.why .why-card{
-  padding:18px 0;
-}
-
-.page-services section.why .why-card + .why-card{
-  border-top:1px solid rgba(0,0,0,.04);
-}
-
-/* Optional: gentle hover on desktop */
-@media (hover:hover){
-  .page-services section.why .why-card:hover{
-    background:rgba(255,255,255,.35);
+/* =========================================
+   iOS EDGE EXPANSION — MATCH HERO EXACTLY
+========================================= */
+@media (max-width:900px){
+  .page-services .photo{
+    width:100vw;
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
   }
+}
+/* =========================================
+   WHY CHOOSE US — GLOBAL SECTION SEPARATION
+========================================= */
+.page-services #why-us{
+  margin-top:64px;
 }

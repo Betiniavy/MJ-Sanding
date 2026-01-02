@@ -1,7 +1,6 @@
 /* =========================================
-   REQUEST A QUOTE — MODERN SPLIT (NO NEW HTML CLASSES)
-   Uses your existing structure:
-   #contact.quote-lite -> .quote-grid -> (.quote-form + .quote-aside)
+   REQUEST A QUOTE — MODERN SPLIT
+   Uses existing HTML structure only
 ========================================= */
 
 #contact.quote-lite{
@@ -9,7 +8,7 @@
   background: transparent;
 }
 
-/* Header stays clean */
+/* ---------- HEADER ---------- */
 #contact.quote-lite .quote-header{
   max-width: 680px;
   margin-bottom: 22px;
@@ -19,7 +18,7 @@
   color: var(--muted);
 }
 
-/* ---------- GRID LAYOUT (LEFT FORM / RIGHT ASIDE) ---------- */
+/* ---------- GRID LAYOUT ---------- */
 #contact.quote-lite .quote-grid{
   display:grid;
   grid-template-columns: minmax(420px, 1.05fr) minmax(320px, .9fr);
@@ -35,7 +34,7 @@
 }
 
 /* =========================================
-   LEFT — FORM CARD (your .quote-form)
+   LEFT — FORM CARD
 ========================================= */
 #contact.quote-lite .quote-form{
   background:#fff;
@@ -45,7 +44,7 @@
   box-shadow:0 18px 40px rgba(0,0,0,.06);
 }
 
-/* fields + spacing */
+/* ---------- LABELS ---------- */
 #contact.quote-lite .quote-form label{
   display:flex;
   flex-direction:column;
@@ -58,7 +57,7 @@
   color: var(--heading);
 }
 
-/* two-column row */
+/* ---------- ROWS ---------- */
 #contact.quote-lite .q-row{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -72,12 +71,11 @@
   }
 }
 
-/* Full width blocks */
 #contact.quote-lite .q-full{
   margin-bottom:16px;
 }
 
-/* Inputs */
+/* ---------- INPUTS ---------- */
 #contact.quote-lite .quote-form input,
 #contact.quote-lite .quote-form textarea{
   border:1px solid var(--line);
@@ -100,149 +98,58 @@
   box-shadow:0 0 0 3px rgba(58,23,12,.12);
 }
 
-/* GDPR checkbox — FIX ALIGNMENT */
-#contact.quote-lite .q-check{
+/* =========================================
+   CONSENT ROW (LEFT-ALIGNED, INLINE)
+========================================= */
+#contact.quote-lite .quote-form label.form-consent{
   display:flex;
-  align-items:center;     /* key change */
+  flex-direction:row;
+  align-items:flex-start;
   gap:10px;
-  margin-bottom:18px;
-  font-size:14px;
-  color:var(--muted);
+  margin:18px 0 14px;
 }
 
-/* remove the manual push */
-#contact.quote-lite .q-check input{
-  margin:0;               /* override margin-top:3px */
+#contact.quote-lite .quote-form label.form-consent input{
+  margin-top:.2em;
   flex:0 0 auto;
 }
 
-/* prevent the text from dropping */
-#contact.quote-lite .q-check span{
-  margin:0;
-  line-height:1.4;
-}
-/* GDPR checkbox — FORCE checkbox + text on one line */
-#contact.quote-lite .quote-form .q-check{
-  display:flex;
-  flex-direction:row;      /* critical: overrides label column layout */
-  align-items:center;      /* vertical alignment */
-  gap:10px;
-  margin-bottom:18px;
-  font-size:14px;
-  color:var(--muted);
+#contact.quote-lite .quote-form label.form-consent span{
+  font-size:13px;
+  line-height:1.35;
+  font-weight:500;
+  color:rgba(43,43,43,.75);
 }
 
-/* keep checkbox at the beginning (left) */
-#contact.quote-lite .quote-form .q-check input{
-  margin:0;
-  flex:0 0 auto;
-}
-
-/* keep text beside checkbox, not wrapping underneath */
-#contact.quote-lite .quote-form .q-check span{
-  display:inline-block;
-  margin:0;
-  line-height:1.4;
-}
-
-
-/* ================================
-   MODERN REQUEST A QUOTE
-================================ */
-
-.quote-modern{
-  display:flex;
-  justify-content:center;
-}
-
-.quote-card{
-  width:100%;
-  max-width:520px;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:32px 28px 28px;
-  box-shadow:0 20px 50px rgba(0,0,0,.08);
-}
-
-/* Header */
-.quote-head{
-  text-align:center;
-  margin-bottom:24px;
-}
-
-.quote-head h2{
-  margin-bottom:6px;
-  font-size:clamp(22px,3vw,28px);
-}
-
-.quote-head p{
-  color:var(--muted);
-  font-size:15px;
-}
-
-/* Form */
-.quote-form-modern{
-  display:grid;
-  gap:16px;
-}
-
-.quote-form-modern label{
+/* =========================================
+   CTA AREA — LEFT ALIGNED (KEY FIX)
+========================================= */
+#contact.quote-lite .q-actions{
   display:flex;
   flex-direction:column;
+  align-items:flex-start;     /* LEFT */
   gap:6px;
+  margin-top:12px;
 }
 
-.quote-form-modern span{
+/* Button stays aligned with fields */
+#contact.quote-lite .q-actions .btn{
+  align-self:flex-start;
+  margin:0;
+}
+
+/* Helper microcopy */
+#contact.quote-lite .q-actions .response-time{
+  font-size:13px;
+  color:rgba(43,43,43,.7);
   font-weight:600;
-  font-size:14px;
+  line-height:1.3;
+  white-space:nowrap;
 }
 
-/* Inputs */
-.quote-form-modern input,
-.quote-form-modern select,
-.quote-form-modern textarea{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px 14px;
-  font-size:15px;
-  font-family:inherit;
-  background:#fff;
-}
-
-.quote-form-modern textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-/* Focus state */
-.quote-form-modern input:focus,
-.quote-form-modern select:focus,
-.quote-form-modern textarea:focus{
-  outline:none;
-  border-color:var(--dark);
-  box-shadow:0 0 0 3px rgba(75,46,30,.12);
-}
-
-/* Button */
-.btn-quote{
-  margin-top:10px;
-  width:100%;
-  padding:13px 18px;
-  font-size:15px;
-  border-radius:14px;
-}
-
-/* Mobile polish */
-@media (max-width:640px){
-  .quote-card{
-    padding:26px 20px 22px;
-  }
-}
 /* =========================================
-   CALM INFO PANEL (CONTACT PAGE)
+   RIGHT — CALM INFO PANEL
 ========================================= */
-
 .calm-panel{
   background:#fff;
   border:1px solid var(--border);
@@ -257,7 +164,6 @@
   color:var(--heading);
 }
 
-/* Steps */
 .calm-steps{
   list-style:none;
   padding:0;
@@ -282,14 +188,12 @@
   color:var(--muted);
 }
 
-/* Divider */
 .calm-divider{
   height:1px;
   background:var(--border);
   margin:18px 0 14px;
 }
 
-/* Footer note */
 .calm-note{
   font-size:14px;
   color:var(--muted);
@@ -297,7 +201,6 @@
   line-height:1.5;
 }
 
-/* Mobile spacing */
 @media (max-width:900px){
   .calm-panel{
     padding:20px;

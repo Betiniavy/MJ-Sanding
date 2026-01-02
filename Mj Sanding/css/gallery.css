@@ -18,7 +18,7 @@ body.page-gallery{
 }
 
 /* =========================
-   HERO (TALLER + STRONGER TYPE)
+   HERO (MATCH GLOBAL TYPE)
 ========================= */
 .page-gallery .hero{
   background:
@@ -30,9 +30,6 @@ body.page-gallery{
 
 .page-gallery .hero h1{
   color:#fff;
-  font-size:clamp(2.2rem, 4vw, 3rem);
-  font-weight:800;
-  margin-bottom:12px;
 }
 
 .page-gallery .hero .lead{
@@ -44,64 +41,51 @@ body.page-gallery{
 }
 
 /* =========================
-   REMOVE CONTAINER CONSTRAINT
+   MAIN CONTAINER
+   (RESTORED — THIS IS THE KEY)
 ========================= */
 .page-gallery main.container{
-  max-width:none;
+  max-width:none;            /* ⬅ restores wide cards */
   padding-left:8px;
   padding-right:8px;
 }
 
 /* =========================
-   SECTION SPACING (CONTROLLED)
+   SECTION SPACING
 ========================= */
 .page-gallery section{
   padding-block:24px;
 }
 
-/* =========================
-   FILTERS (LIVELIER)
-========================= */
 .page-gallery .filters{
   display:flex;
   justify-content:center;
   align-items:center;
   gap:14px;
   flex-wrap:wrap;
-  margin:36px 0 44px;
+  margin:36px 0 5px; /* ⬅ brings images closer */
 }
+
 
 .page-gallery .chip{
   background:#fff;
   color:var(--heading);
   border:1.5px solid var(--border);
   border-radius:999px;
-  padding:10px 18px;              /* ⬅ bigger */
-  font-size:.95rem;               /* ⬅ slightly larger text */
+  padding:10px 18px;
+  font-size:.95rem;
   font-weight:700;
   cursor:pointer;
-  transition:
-    transform .15s ease,
-    box-shadow .15s ease,
-    background .2s ease,
-    color .2s ease;
-}
-
-.page-gallery .chip:hover{
-  transform:translateY(-1px);
-  box-shadow:0 6px 14px rgba(0,0,0,.08);
 }
 
 .page-gallery .chip.active{
   background:var(--heading);
   color:#fff;
   border-color:var(--heading);
-  box-shadow:0 8px 18px rgba(0,0,0,.18);
 }
 
-
 /* =========================
-   GALLERY GRID (BIG + TIGHT)
+   GALLERY GRID (WIDE LIKE BEFORE)
 ========================= */
 .page-gallery .grid{
   display:grid;
@@ -119,10 +103,8 @@ body.page-gallery{
   border-radius:14px;
   overflow:hidden;
   position:relative;
-  cursor:pointer;
 }
 
-/* IMAGE (NO SHRINK) */
 .page-gallery .card img{
   width:100%;
   height:100%;
@@ -131,7 +113,7 @@ body.page-gallery{
 }
 
 /* =========================
-   RESPONSIVE
+   TABLET
 ========================= */
 @media (max-width:1000px){
   .page-gallery .grid{
@@ -143,64 +125,34 @@ body.page-gallery{
   }
 }
 
+/* =========================
+   MOBILE — ONE LARGE IMAGE PER ROW
+========================= */
 @media (max-width:640px){
   .page-gallery .grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:8px;
+    grid-template-columns:1fr;   /* ⬅ new requirement */
+    gap:12px;
   }
   .page-gallery .card{
-    grid-column:span 2;
+    grid-column:span 1;
   }
 }
 
 /* =========================
-   BEFORE / AFTER IMAGE SPLIT
-========================= */
-.page-gallery .ba{
-  position:relative;
-  aspect-ratio:4 / 3;
-  overflow:hidden;
-  border-radius:14px;
-}
-
-.page-gallery .ba img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.page-gallery .img-before{
-  clip-path:inset(0 50% 0 0);
-}
-
-.page-gallery .img-after{
-  clip-path:inset(0 0 0 50%);
-}
-
-/* =========================
-   REMOVE BEFORE / AFTER LABELS
-========================= */
-.page-gallery .label{
-  display:none;
-}
-
-/* =========================
-   CTA (TIGHTER + CONSISTENT TYPE)
+   CTA (UNCHANGED)
 ========================= */
 .page-gallery .gallery-cta{
   text-align:center;
-  margin:56px auto 24px;   /* ⬅ moved UP */
+  margin:8px auto 24px; /* ⬅ brings CTA closer */
   padding:0 16px;
   max-width:1000px;
 }
 
+
 .page-gallery .gallery-cta h2{
   font-size:clamp(1.55rem, 2.6vw, 1.9rem);
-  font-weight:800;         /* ⬅ matches hero/service tone */
+  font-weight:800;
   margin-bottom:10px;
-  letter-spacing:-.01em;
 }
 
 .page-gallery .gallery-cta p{
@@ -213,5 +165,5 @@ body.page-gallery{
 
 .page-gallery .gallery-cta .btn{
   font-size:.95rem;
-  padding:14px 30px;       /* ⬅ slightly more presence */
+  padding:14px 30px;
 }
