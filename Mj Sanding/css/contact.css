@@ -1,24 +1,43 @@
 /* =========================================
-   PAGE-SCOPED TOKENS (CONTACT ONLY)
+   CONTACT PAGE — TOKENS
 ========================================= */
 .page-contact{
   --hero-img:url('../assets/imghero.png');
 }
 
-/* HERO */
+/* =========================================
+   CONTACT PAGE — HERO
+========================================= */
 .page-contact .hero{
   background:
-    linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.25)),
+    linear-gradient(0deg, rgba(0,0,0,.45), rgba(0,0,0,.35)),
     var(--hero-img) center/cover no-repeat;
   color:#fff;
   text-align:center;
-  padding:84px 18px 68px;
+  padding:64px 18px 56px;
 }
 
-.page-contact .hero h1{ color:#fff }
-.page-contact .hero .lead{ max-width:620px; margin:0 auto }
+.page-contact .hero h1{
+  color:#fff;
+  margin-bottom:10px;
+}
 
-/* LAYOUT */
+.page-contact .hero .lead{
+  max-width:620px;
+  margin:0 auto 8px;
+  font-size:17px;
+  line-height:1.5;
+}
+
+.page-contact .hero .hero-note{
+  font-size:13.5px;
+  opacity:.85;
+  letter-spacing:.02em;
+}
+
+/* =========================================
+   CONTACT LAYOUT
+========================================= */
 .contact-layout{
   display:grid;
   grid-template-columns:1.2fr .8fr;
@@ -26,10 +45,14 @@
 }
 
 @media (max-width:900px){
-  .contact-layout{ grid-template-columns:1fr }
+  .contact-layout{
+    grid-template-columns:1fr;
+  }
 }
 
-/* FORM */
+/* =========================================
+   BASE FORM STYLES
+========================================= */
 .quote-form{
   background:#fff;
   border:1px solid var(--border);
@@ -43,7 +66,9 @@
 }
 
 @media (max-width:640px){
-  .form-grid{ grid-template-columns:1fr }
+  .form-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 .quote-form label{
@@ -58,9 +83,12 @@
   border-radius:10px;
   padding:12px;
   font:inherit;
+  background:#fff;
 }
 
-.quote-form textarea{ min-height:110px }
+.quote-form textarea{
+  min-height:110px;
+}
 
 .form-actions{
   display:flex;
@@ -69,7 +97,9 @@
   flex-wrap:wrap;
 }
 
-/* ASIDE */
+/* =========================================
+   CONTACT ASIDE
+========================================= */
 .contact-aside{
   display:grid;
   gap:18px;
@@ -80,10 +110,10 @@
   border:1px solid var(--border);
   border-radius:16px;
 }
-/* =========================================
-   FOOTER — CONTACT (MATCHES SERVICES)
-========================================= */
 
+/* =========================================
+   CONTACT FOOTER (MATCHES SERVICES)
+========================================= */
 .page-contact .footer-band{
   margin-top:48px;
   background:linear-gradient(180deg, #29160e, #1f120c);
@@ -114,7 +144,7 @@
 
 .page-contact .footer-band p,
 .page-contact .footer-band a{
-  color:#ffffff;
+  color:#fff;
   font-size:15px;
   text-decoration:none;
 }
@@ -155,31 +185,27 @@
   margin:0;
   font-size:14px;
 }
-/* =========================================
-   REQUEST A QUOTE — MODERN SPLIT (NO NEW HTML CLASSES)
-   Uses your existing structure:
-   #contact.quote-lite -> .quote-grid -> (.quote-form + .quote-aside)
-========================================= */
 
+/* =========================================
+   REQUEST A QUOTE — SPLIT LAYOUT
+========================================= */
 #contact.quote-lite{
-  padding: 36px 0 48px;
-  background: transparent;
+  padding:36px 0 48px;
+  background:transparent;
 }
 
-/* Header stays clean */
 #contact.quote-lite .quote-header{
-  max-width: 680px;
-  margin-bottom: 22px;
+  max-width:680px;
+  margin-bottom:22px;
 }
 
 #contact.quote-lite .quote-header p{
-  color: var(--muted);
+  color:var(--muted);
 }
 
-/* ---------- GRID LAYOUT (LEFT FORM / RIGHT ASIDE) ---------- */
 #contact.quote-lite .quote-grid{
   display:grid;
-  grid-template-columns: minmax(420px, 1.05fr) minmax(320px, .9fr);
+  grid-template-columns:minmax(420px,1.05fr) minmax(320px,.9fr);
   gap:48px;
   align-items:start;
 }
@@ -192,7 +218,7 @@
 }
 
 /* =========================================
-   LEFT — FORM CARD (your .quote-form)
+   QUOTE FORM (PRIMARY)
 ========================================= */
 #contact.quote-lite .quote-form{
   background:#fff;
@@ -202,20 +228,12 @@
   box-shadow:0 18px 40px rgba(0,0,0,.06);
 }
 
-/* fields + spacing */
-#contact.quote-lite .quote-form label{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
 #contact.quote-lite .quote-form span{
   font-size:14px;
   font-weight:600;
-  color: var(--heading);
+  color:var(--heading);
 }
 
-/* two-column row */
 #contact.quote-lite .q-row{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -229,177 +247,68 @@
   }
 }
 
-/* Full width blocks */
 #contact.quote-lite .q-full{
   margin-bottom:16px;
 }
 
-/* Inputs */
 #contact.quote-lite .quote-form input,
 #contact.quote-lite .quote-form textarea{
   border:1px solid var(--line);
   border-radius:12px;
   padding:12px 14px;
   font-size:15px;
-  font-family:inherit;
   background:#fff;
 }
 
+/* =========================================
+   TEXTAREA — DEFINITIVE FIX (NO INNER LINE)
+========================================= */
 #contact.quote-lite .quote-form textarea{
   min-height:100px;
   resize:vertical;
+
+  /* kill browser inset line */
+  box-shadow:none !important;
+  -webkit-box-shadow:none !important;
+  background-image:none !important;
+  background-clip:padding-box;
+  outline:none;
+  appearance:none;
+  -webkit-appearance:none;
 }
 
 #contact.quote-lite .quote-form input:focus,
 #contact.quote-lite .quote-form textarea:focus{
-  outline:none;
   border-color:var(--heading);
   box-shadow:0 0 0 3px rgba(58,23,12,.12);
 }
 
-/* GDPR checkbox — FIX ALIGNMENT */
-#contact.quote-lite .q-check{
-  display:flex;
-  align-items:center;     /* key change */
-  gap:10px;
-  margin-bottom:18px;
-  font-size:14px;
-  color:var(--muted);
-}
-
-/* remove the manual push */
-#contact.quote-lite .q-check input{
-  margin:0;               /* override margin-top:3px */
-  flex:0 0 auto;
-}
-
-/* prevent the text from dropping */
-#contact.quote-lite .q-check span{
-  margin:0;
-  line-height:1.4;
-}
-/* GDPR checkbox — FORCE checkbox + text on one line */
+/* =========================================
+   GDPR CHECKBOX
+========================================= */
 #contact.quote-lite .quote-form .q-check{
   display:flex;
-  flex-direction:row;      /* critical: overrides label column layout */
-  align-items:center;      /* vertical alignment */
+  flex-direction:row;
+  align-items:center;
   gap:10px;
   margin-bottom:18px;
   font-size:14px;
   color:var(--muted);
 }
 
-/* keep checkbox at the beginning (left) */
 #contact.quote-lite .quote-form .q-check input{
   margin:0;
   flex:0 0 auto;
 }
 
-/* keep text beside checkbox, not wrapping underneath */
 #contact.quote-lite .quote-form .q-check span{
-  display:inline-block;
   margin:0;
   line-height:1.4;
 }
 
-
-/* ================================
-   MODERN REQUEST A QUOTE
-================================ */
-
-.quote-modern{
-  display:flex;
-  justify-content:center;
-}
-
-.quote-card{
-  width:100%;
-  max-width:520px;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:32px 28px 28px;
-  box-shadow:0 20px 50px rgba(0,0,0,.08);
-}
-
-/* Header */
-.quote-head{
-  text-align:center;
-  margin-bottom:24px;
-}
-
-.quote-head h2{
-  margin-bottom:6px;
-  font-size:clamp(22px,3vw,28px);
-}
-
-.quote-head p{
-  color:var(--muted);
-  font-size:15px;
-}
-
-/* Form */
-.quote-form-modern{
-  display:grid;
-  gap:16px;
-}
-
-.quote-form-modern label{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.quote-form-modern span{
-  font-weight:600;
-  font-size:14px;
-}
-
-/* Inputs */
-.quote-form-modern input,
-.quote-form-modern select,
-.quote-form-modern textarea{
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px 14px;
-  font-size:15px;
-  font-family:inherit;
-  background:#fff;
-}
-
-.quote-form-modern textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-/* Focus state */
-.quote-form-modern input:focus,
-.quote-form-modern select:focus,
-.quote-form-modern textarea:focus{
-  outline:none;
-  border-color:var(--dark);
-  box-shadow:0 0 0 3px rgba(75,46,30,.12);
-}
-
-/* Button */
-.btn-quote{
-  margin-top:10px;
-  width:100%;
-  padding:13px 18px;
-  font-size:15px;
-  border-radius:14px;
-}
-
-/* Mobile polish */
-@media (max-width:640px){
-  .quote-card{
-    padding:26px 20px 22px;
-  }
-}
 /* =========================================
-   CALM INFO PANEL (CONTACT PAGE)
+   CALM INFO PANEL
 ========================================= */
-
 .calm-panel{
   background:#fff;
   border:1px solid var(--border);
@@ -414,7 +323,6 @@
   color:var(--heading);
 }
 
-/* Steps */
 .calm-steps{
   list-style:none;
   padding:0;
@@ -439,14 +347,12 @@
   color:var(--muted);
 }
 
-/* Divider */
 .calm-divider{
   height:1px;
   background:var(--border);
   margin:18px 0 14px;
 }
 
-/* Footer note */
 .calm-note{
   font-size:14px;
   color:var(--muted);
@@ -454,7 +360,6 @@
   line-height:1.5;
 }
 
-/* Mobile spacing */
 @media (max-width:900px){
   .calm-panel{
     padding:20px;

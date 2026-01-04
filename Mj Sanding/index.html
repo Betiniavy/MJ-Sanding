@@ -444,103 +444,87 @@
     })();
   </script>
 
-  <!-- Gallery Auto-Swipe -->
-  <script>
-  (function(){
-    function init(){
-      const carousel = document.querySelector('#gallery .home-carousel');
-      const track = carousel?.querySelector('.hc-track');
-      if (!carousel || !track) return;
+<!-- Gallery Auto-Swipe (FIXED, MINIMAL CHANGE) -->
+<script>
+(function(){
+  function init(){
+    const carousel = document.querySelector('#gallery .home-carousel');
+    const track = carousel?.querySelector('.hc-track');
+    if (!carousel || !track) return;
 
-      const dots = carousel.querySelector('.hc-dots');
-      if (dots) dots.remove();
-      track.style.transition = 'none';
-      track.style.willChange = 'transform';
+    const dots = carousel.querySelector('.hc-dots');
+    if (dots) dots.remove();
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      if (track.dataset.autoLoop === '1') return;
-      track.dataset.autoLoop = '1';
+    track.style.transition = 'none';
+    track.style.willChange = 'transform';
 
-      const slides = Array.from(track.children);
-      if (slides.length === 0) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (track.dataset.autoLoop === '1') return;
+    track.dataset.autoLoop = '1';
 
-      function totalWidthOf(elList){
-        let w = 0;
-        const gap = parseFloat(getComputedStyle(track).gap || '0');
-        elList.forEach((el, i) => {
-          w += el.getBoundingClientRect().width;
-          if (i < elList.length - 1) w += gap;
-        });
-        return w;
+    const slides = Array.from(track.children);
+    if (slides.length === 0) return;
+
+    function totalWidthOf(elList){
+      let w = 0;
+      const gap = parseFloat(getComputedStyle(track).gap || '0');
+      elList.forEach((el, i) => {
+        w += el.getBoundingClientRect().width;
+        if (i < elList.length - 1) w += gap;
+      });
+      return w;
+    }
+
+    function fillForLoop(){
+      const needWidth = carousel.getBoundingClientRect().width * 3;
+      let currentWidth = totalWidthOf(Array.from(track.children));
+      const base = slides.map(s => s.cloneNode(true));
+
+      while (currentWidth < needWidth) {
+        base.forEach(clone => track.appendChild(clone.cloneNode(true)));
+        currentWidth = totalWidthOf(Array.from(track.children));
       }
+    }
 
-      function fillForLoop(){
-        const needWidth = carousel.getBoundingClientRect().width * 3;
-        let currentWidth = totalWidthOf(Array.from(track.children));
-        const base = slides.map(s => s.cloneNode(true));
-        while (currentWidth < needWidth) {
-          base.forEach(clone => track.appendChild(clone.cloneNode(true)));
-          currentWidth = totalWidthOf(Array.from(track.children));
+    fillForLoop();
+
+    let offset = 0;
+    let last = performance.now();
+    let paused = false;
+    const speed = 0.25; // ✅ keep original speed
+
+    carousel.addEventListener('mouseenter', () => paused = true);
+    carousel.addEventListener('mouseleave', () => paused = false);
+    carousel.addEventListener('touchstart', () => paused = true, {passive:true});
+    carousel.addEventListener('touchend', () => paused = false, {passive:true});
+
+    const resetPoint = track.scrollWidth / 2; // ✅ KEY FIX
+
+    function tick(now){
+      const dt = now - last;
+      last = now;
+
+      if (!paused){
+        offset -= speed * dt;
+
+        // Reset BEFORE empty space can appear
+        if (Math.abs(offset) >= resetPoint){
+          offset = 0;
         }
-      }
 
-      fillForLoop();
-
-      let offset = 0;
-      let last = performance.now();
-      let paused = false;
-      const speed = 0.25;
-
-      carousel.addEventListener('mouseenter', () => paused = true);
-      carousel.addEventListener('mouseleave', () => paused = false);
-      carousel.addEventListener('touchstart', () => paused = true, {passive:true});
-      carousel.addEventListener('touchend', () => paused = false, {passive:true});
-
-      function getCycleWidth(){
-        const kids = Array.from(track.children);
-        const originalsCount = slides.length;
-        const gap = parseFloat(getComputedStyle(track).gap || '0');
-        let w = 0;
-        for (let i = 0; i < originalsCount && i < kids.length; i++){
-          w += kids[i].getBoundingClientRect().width;
-          if (i < originalsCount - 1) w += gap;
-        }
-        return w || 1;
-      }
-
-      function tick(now){
-        const dt = now - last; last = now;
-        if (!paused){
-          offset -= speed * dt;
-          const cycle = getCycleWidth();
-          if (-offset >= cycle) offset += cycle;
-          track.style.transform = `translateX(${offset}px)`;
-        }
-        requestAnimationFrame(tick);
+        track.style.transform = `translateX(${offset}px)`;
       }
       requestAnimationFrame(tick);
     }
 
-    if (document.readyState === 'complete') init();
-    else window.addEventListener('load', init);
-  })();
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"LocalBusiness",
-    "name":"MJ Sanding",
-    "url":"https://www.mjsanding.co.uk/",
-    "image":"https://www.mjsanding.co.uk/assets/og-hero.jpg",
-    "telephone":"+44 7702641125",
-    "email":"info@mjsanding.co.uk",
-    "address":{"@type":"PostalAddress","addressLocality":"Wallington","addressCountry":"GB"},
-    "areaServed":"United Kingdom",
-    "priceRange":"££",
-    "sameAs":["https://g.page/r/YOUR_GOOGLE_PLACE_ID"]
+    requestAnimationFrame(tick);
   }
-  </script>
+
+  if (document.readyState === 'complete') init();
+  else window.addEventListener('load', init);
+})();
+</script>
+
   
   <script>
 (function(){
