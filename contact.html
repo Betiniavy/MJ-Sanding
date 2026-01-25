@@ -13,7 +13,6 @@
 
   <!-- Contact page styles -->
   <link rel="stylesheet" href="css/contact.css">
-  
 </head>
 
 <body class="page-contact">
@@ -56,7 +55,6 @@
   </div>
 </section>
 
-
 <!-- ================= CONTACT / QUOTE ================= -->
 <section id="contact" class="quote-lite">
   <div class="container">
@@ -71,20 +69,21 @@
     <div class="quote-grid">
 
       <!-- LEFT: FORM -->
-<form class="quote-form"
-      name="quote"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field">
+      <form
+        class="quote-form"
+        name="quote"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="quote">
 
-<input type="hidden" name="form-name" value="quote">
-
-<p hidden>
-  <label>
-    Don’t fill this out:
-    <input name="bot-field">
-  </label>
-</p>
+        <p hidden>
+          <label>
+            Don’t fill this out:
+            <input name="bot-field">
+          </label>
+        </p>
 
         <div class="q-row">
           <label>
@@ -117,21 +116,34 @@
           </label>
         </div>
 
+        <!-- LEGAL CONSENT -->
         <label class="q-check">
-<input type="checkbox" name="consent" required>
-          <span>I consent to having this website store my submitted information.</span>
+          <input
+            type="checkbox"
+            name="legal_consent"
+            value="Accepted"
+            required
+          >
+          <span>
+            I have read and agree to the
+            <a href="/assets/terms-conditions.pdf" target="_blank" rel="noopener">
+              Terms &amp; Conditions
+            </a>
+            and the
+            <a href="/assets/privacy.pdf" target="_blank" rel="noopener">
+              Privacy Policy
+            </a>
+          </span>
         </label>
 
         <div class="q-actions">
           <button type="submit" class="btn btn-primary">Request Quote</button>
           <small>We usually respond within 24 hours.</small>
         </div>
-
       </form>
 
-      <!-- RIGHT: CALM INFO PANEL -->
+      <!-- RIGHT: INFO PANEL -->
       <aside class="quote-aside">
-
         <div class="calm-panel">
           <h3>What happens next?</h3>
 
@@ -160,65 +172,68 @@
             Prefer to speak directly? Call us on <strong>+44 7702 641125</strong>.
           </p>
         </div>
-
       </aside>
 
     </div>
   </div>
 </section>
 
-</main>
-
 <!-- ===== FOOTER BAND ===== -->
-  <section id="footer-info" class="footer-band">
-    <div class="container fb-grid">
-      <div class="fb-col fb-contact">
-        <h3>Contact Us</h3>
-        <p><a href="tel:+447702641125">+44 7702641125</a></p>
-        <p><a href="tel:+447442180797">+44 7442180797</a></p>
+<section id="footer-info" class="footer-band">
+  <div class="container fb-grid">
 
-        <p><a href="psander2408@gmail.com">psander2408@gmail.com</a></p>
-        <p><a class="fb-link" href="#contact">Request a Quotation →</a></p>
+    <div class="fb-col fb-contact">
+      <h3>Contact Us</h3>
+      <p><a href="tel:+447702641125">+44 7702641125</a></p>
+      <p><a href="tel:+447442180797">+44 7442180797</a></p>
+      <p><a href="mailto:psander2408@gmail.com">psander2408@gmail.com</a></p>
+      <p><a class="fb-link" href="#contact">Request a Quotation →</a></p>
+    </div>
+
+    <div class="fb-col fb-brand">
+      <div class="brand-mark">
+        <img loading="lazy" src="assets/Svg logo.svg" alt="MJ Sanding logo">
+        <div class="tagline">Floor Sanding &amp; Restoration</div>
       </div>
 
-      <div class="fb-col fb-brand">
-  <div class="brand-mark">
-    <img loading="lazy" src="assets/Svg logo.svg" alt="MJ Sanding logo">
-    <div class="tagline">Floor Sanding &amp; Restoration</div>
-  </div>
+      <p class="muted">Based in Wallington · Serving the UK</p>
 
-  <p class="muted">Based in Wallington · Serving the UK</p>
-
-  <!-- Social icons -->
-  <div class="footer-socials">
-    <a href="https://www.facebook.com/share/1AHfTGBJPM/?mibextid=wwXIfr" target="_blank" aria-label="facebook">
-      <img src="assets/facebook-icon.svg" alt="">
-    </a>
-    <a href="https://www.instagram.com/mjsanding?igsh=MWsyaGEzZXRhMXBlOA==" target="_blank" aria-label="instagram">
-      <img src="assets/instagram-icon.svg" alt="">
-    </a>
-    <a href="https://g.page/MJSND" target="_blank" aria-label="Google Reviews">
-  <img src="assets/google-icon.svg" alt="Google">
-</a>
-
-  </div>
-</div>
-
-
-
-      <div class="fb-col fb-hours">
-        <h3>Opening Hours</h3>
-        <p>Mon–Fri: 8:00–18:00</p>
-        <p>Sat-Sun 9:00–16:00</p>
-        <p class="muted">Bank holidays / out-of-hours work available by arrangement.</p>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/share/1AHfTGBJPM/?mibextid=wwXIfr" target="_blank" aria-label="facebook">
+          <img src="assets/facebook-icon.svg" alt="">
+        </a>
+        <a href="https://www.instagram.com/mjsanding?igsh=MWsyaGEzZXRhMXBlOA==" target="_blank" aria-label="instagram">
+          <img src="assets/instagram-icon.svg" alt="">
+        </a>
+        <a href="https://g.page/MJSND" target="_blank" aria-label="Google Reviews">
+          <img src="assets/google-icon.svg" alt="Google">
+        </a>
       </div>
     </div>
-  </section>
+
+    <div class="fb-col fb-hours">
+      <h3>Opening Hours</h3>
+      <p>Mon–Fri: 8:00–18:00</p>
+      <p>Sat–Sun: 9:00–16:00</p>
+      <p class="muted">Bank holidays / out-of-hours work available by arrangement.</p>
+    </div>
+
+  </div>
+</section>
 
 <footer class="site-footer">
-    <p>© <span id="y"></span> MJ Sanding — All rights reserved.</p>
-  </footer>
-
+  <p>
+    © <span id="y"></span> MJ Sanding — All rights reserved.
+    ·
+    <a href="/assets/terms-conditions.pdf" target="_blank" rel="noopener">
+      Terms &amp; Conditions
+    </a>
+    ·
+    <a href="/assets/privacy.pdf" target="_blank" rel="noopener">
+      Privacy Policy
+    </a>
+  </p>
+</footer>
 
 <script>
   document.getElementById('y').textContent = new Date().getFullYear();

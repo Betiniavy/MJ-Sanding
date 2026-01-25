@@ -631,3 +631,25 @@ form label:has(input[type="checkbox"]){
 .form-consent span{
   line-height:1.3;
 }
+/* =========================================
+   GDPR CHECKBOX
+========================================= */
+#contact.quote-lite .quote-form .q-check{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+#contact.quote-lite .quote-form .q-check input{
+  margin:0;
+  flex:0 0 auto;
+}
+
+#contact.quote-lite .quote-form .q-check span{
+  margin:0;
+  line-height:1.4;
+}
